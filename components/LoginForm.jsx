@@ -89,7 +89,7 @@ const LoginForm = () => {
                 </div>
                 {/* 
               <!-- Password --> */}
-                <div className='mb-4'>
+                <div className='mb-2'>
                   <label className='block text-gray-700 font-bold mb-2'>
                     Password
                   </label>
@@ -97,7 +97,7 @@ const LoginForm = () => {
                     type='password'
                     id='password'
                     name='password'
-                    className='border rounded w-full py-2 px-3 mb-2'
+                    className='border rounded w-full py-2 px-3'
                     placeholder='Password'
                     required
                     value={password}
@@ -105,10 +105,14 @@ const LoginForm = () => {
                   />
                 </div>
 
+                <div className='mb-6 text-indigo-500 text-sm font-bold max-w-fit hover:bg-indigo-100 hover:'>
+                  <Link href={'/forget-password'}>Forgot Password?</Link>
+                </div>
+
                 {/* <!-- Submit Button --> */}
                 <div>
                   <button
-                    className='bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline'
+                    className='bg-indigo-500 hover:bg-indigo-600 text-indigo-50 font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline'
                     type='submit
                 '
                   >

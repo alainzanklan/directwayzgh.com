@@ -8,7 +8,7 @@ const ProSchema = new Schema(
       required: true,
     },
 
-    Service: {
+    type: {
       type: String,
     },
 
@@ -40,6 +40,15 @@ const ProSchema = new Schema(
     year_in_business: {
       type: String,
     },
+    price: {
+      type: String,
+    },
+
+    payment: [
+      {
+        type: String,
+      },
+    ],
 
     company_info: {
       name: {
@@ -48,20 +57,16 @@ const ProSchema = new Schema(
       email: {
         type: String,
       },
-      number: {
+      phone: {
         type: Number,
       },
     },
 
-    featured_project: [
+    logo: [
       {
         type: String,
       },
     ],
-
-    profile_image: {
-      type: String,
-    },
 
     background: {
       type: Boolean,

@@ -7,6 +7,15 @@ import bcrypt from 'bcryptjs';
 export const authOptions = {
   providers: [
     GoogleProvider({
+      profile(profile) {
+        return {
+          id: profile.sub,
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture,
+          role: profile.role ?? 'USER',
+        };
+      },
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       authorization: {
@@ -54,6 +63,25 @@ export const authOptions = {
   },
 
   callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.name = user.name;
+        token.email = user.email;
+        token.role = user.role;
+      }
+
+      return token;
+    },
+
+    async session({ session, token }) {
+      const user = await User.findOne({ email: session.user.email });
+
+      session.user.id = user._id.toString();
+
+      session.user.role = token.role;
+
+      return session;
+    },
     //Invoked on successfull signIn
 
     async signIn({ user }) {
@@ -66,6 +94,8 @@ export const authOptions = {
 
       const name = user.name;
 
+      const role = user.role;
+
       // 3. If not, then add user to the database
       if (!userExist) {
         await User.create({
@@ -75,12 +105,21 @@ export const authOptions = {
           profile: {
             firstName: name,
           },
+          role,
         });
       }
       // 4.Return true to allow sign in
 
       return true;
     },
+
     // modify session object
+
+    // async session({ session, user, token }) {
+    //   if (user) {
+    //     (session.user.name = token.name), (session.user.email = token.email);
+    //     session.user.role = token.role;
+    //   }
+    // },
   },
 };

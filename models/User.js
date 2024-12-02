@@ -2,6 +2,9 @@ import { Schema, model, models } from 'mongoose';
 
 const UserSchema = new Schema(
   {
+    role: {
+      type: String,
+    },
     name: {
       type: String,
     },
@@ -24,6 +27,15 @@ const UserSchema = new Schema(
         type: String,
         trim: true,
       },
+    },
+
+    resetToken: {
+      type: String,
+      required: false,
+    },
+    resetTokenExpires: {
+      type: Date,
+      required: false,
     },
   },
   { timestamp: true }

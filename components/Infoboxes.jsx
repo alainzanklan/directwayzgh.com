@@ -10,8 +10,8 @@ const Infoboxes = () => {
               heading='For Professionals'
               backgroundColor='bg-gray-100'
               buttonInfo={{
-                text: 'Find Customers',
-                link: '/jobs/post',
+                text: 'Become a Pro',
+                link: '/register-pro',
                 backgroundColor: 'bg-black',
               }}
             >

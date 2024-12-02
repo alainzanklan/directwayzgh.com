@@ -8,12 +8,13 @@ import { FaGoogle, FaSleigh } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import Spinner from '@/components/Spinner';
 
-function RegisterForm() {
+function RegisterForm({ role }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  // const [role, setRole] = useState('');
   const { data: session } = useSession('');
 
   const router = useRouter();
@@ -55,20 +56,18 @@ function RegisterForm() {
         return;
       }
 
+      // setUserRole(role);
+
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_DOMAIN}/register`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, password }),
+          body: JSON.stringify({ name, email, password, role }),
         }
       );
 
       if (res.ok) {
-        // setName('');
-        // setEmail('');
-        // setConfirmPassword('');
-        // setPassword('');
         setLoading(true);
         toast.success('Account created');
         router.push('/login');
@@ -78,18 +77,6 @@ function RegisterForm() {
     } catch (error) {
       console.log('User registration failed', error);
     }
-
-    // if (confirmPassword === password) {
-    //   await axios.post(`${process.env.NEXT_PUBLIC_API_DOMAIN}/auth/signup`, {});
-
-    //   await signIn('credentials', {
-    //     redirect: false,
-    //     username: username,
-    //     password,
-    //   });
-    // } else {
-    //   setError('password and confirm password does not match');
-    // }
   };
 
   return (
@@ -100,23 +87,33 @@ function RegisterForm() {
           <div className='container m-auto max-w-lg py-24'>
             <div className='bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0'>
               {/* <!-- Register Form--> */}
-              <h2 className='text-3xl text-center font-semibold mb-6'>
-                Create An Account
-              </h2>
-
-              <div className='mb-4'>
-                <button
-                  onClick={() => signIn('google')}
-                  className='bg-red-500 border hover:bg-red-600 text-red-50 font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline flex items-center justify-center'
-                  type='submit'
-                >
-                  <FaGoogle className='mr-2' /> Register with Google
-                </button>
-              </div>
-              <form onSubmit={handleSubmit}>
-                <div className='my-6 font-semibold text-center'>
-                  Or register with your email address
+              {role === 'PRO' ? (
+                <h2 className='text-3xl text-center font-semibold mb-6'>
+                  Create Pro Account
+                </h2>
+              ) : (
+                <h2 className='text-3xl text-center font-semibold mb-6'>
+                  Create An Account
+                </h2>
+              )}
+              {role === 'USER' ? (
+                <div className='mb-4'>
+                  <button
+                    onClick={() => signIn('google')}
+                    className='bg-red-500 border hover:bg-red-600 text-red-50 font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline flex items-center justify-center'
+                    type='submit'
+                  >
+                    <FaGoogle className='mr-2' /> Register with Google
+                  </button>
+                  <div className='my-6 font-semibold text-center'>
+                    Or register with your email address
+                  </div>
                 </div>
+              ) : (
+                ''
+              )}
+
+              <form onSubmit={handleSubmit}>
                 {/* <!-- First Name --> */}
                 <div className='mb-4'>
                   <label

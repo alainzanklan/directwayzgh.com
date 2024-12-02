@@ -9,7 +9,7 @@ async function Register() {
 
   if (session) redirect('/');
 
-  return <RegisterForm />;
+  return <RegisterForm role='USER' />;
 }
 
 export default Register;

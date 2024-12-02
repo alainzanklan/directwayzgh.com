@@ -1,3 +1,5 @@
+import React from 'react';
+
 const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
 
 // Fetch all pros
@@ -9,7 +11,9 @@ async function fetchPros() {
     if (!apiDomain) {
       return [];
     }
-    const res = await fetch(`${apiDomain}/professionals`);
+    const res = await fetch(`${apiDomain}/professionals`, {
+      cache: 'no-store',
+    });
 
     if (!res.ok) {
       throw new Error('Failed to fetch Data');
@@ -44,4 +48,45 @@ async function fetchPro(id) {
   }
 }
 
-export { fetchPros, fetchPro };
+async function fetchJob(id) {
+  try {
+    // handle case where apiDomain not available
+
+    if (!apiDomain) {
+      return null;
+    }
+
+    const res = await fetch(`${apiDomain}/jobs/${id}`);
+
+    if (!res.ok) {
+      throw new Error('Failed to fetch Data');
+    }
+
+    return res.json();
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+async function fetchLead(id) {
+  try {
+    // handle case where apiDomain not available
+
+    if (!apiDomain) {
+      return null;
+    }
+
+    const res = await fetch(`${apiDomain}/leads/${id}`);
+
+    if (!res.ok) {
+      throw new Error('Failed to fetch Data');
+    }
+
+    return res.json();
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
+export { fetchPros, fetchPro, fetchJob, fetchLead };

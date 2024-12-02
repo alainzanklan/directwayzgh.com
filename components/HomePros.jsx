@@ -6,17 +6,16 @@ const HomeJobs = async () => {
   const recentPros = pros.sort(() => Math.random() - Math.random()).slice(0, 3);
   return (
     <>
-      <section className='px-4 py-10'>
+      <section className='px-4 py-10 lg:bg-indigo-50'>
         <h3 className='text-indigo-500 text-center font-bold text-3xl mb-6'>
           Recent Professionals
         </h3>
-        <div className='container lg:container m-auto px-4 py-6 grid lg:grid-cols-4'>
+        <div className='container lg:container m-auto px-4 py-6 lg:max-w-5xl'>
           {recentPros.length === 0 ? (
             <p>No professionals found</p>
           ) : (
             <>
-              <div className='hidden lg:block'>Filter</div>
-              <div className='grid grid-cols-1 md:grid-cols-1 lg:col-span-3 gap-6'>
+              <div className='grid grid-cols-1 md:grid-cols-1 lg:col-span-3'>
                 {recentPros.map((pros) => (
                   <ProfessionalCard key={pros._id} pros={pros} />
                 ))}
@@ -30,7 +29,7 @@ const HomeJobs = async () => {
           href='jobs.html'
           className='block bg-black text-white text-center py-4 px-6 rounded-xl hover:bg-gray-700'
         >
-          View All Jobs
+          View All Pros
         </a>
       </section>{' '}
     </>

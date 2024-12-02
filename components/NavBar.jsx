@@ -9,6 +9,7 @@ import profileDefault from '@/assets/images/profile.png';
 import { FaGoogle } from 'react-icons/fa';
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
 import Spinner from '@/components/Spinner';
+import UnreadMessageCount from './UnreadMessageCount';
 
 const NavBar = () => {
   const { data: session, status: sessionStatus } = useSession();
@@ -73,23 +74,47 @@ const NavBar = () => {
                   >
                     Home
                   </Link>
-                  <Link
-                    href='/professionals'
-                    className={`${
-                      pathname === '/professionals' ? 'bg-gray-900' : ''
-                    } text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
-                  >
-                    Hire
-                  </Link>
+                  {!session ||
+                    (session?.user.role === 'USER' && (
+                      <Link
+                        href='/professionals'
+                        className={`${
+                          pathname === '/professionals' ? 'bg-gray-900' : ''
+                        } text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
+                      >
+                        Hire a Pro
+                      </Link>
+                    ))}
 
-                  {session && (
+                  {session?.user.role === 'USER' && (
                     <Link
-                      href='/jobs/post'
+                      href='/jobs/add'
                       className={`${
-                        pathname === '/jobs/post' ? 'bg-gray-900' : ''
+                        pathname === '/jobs/add' ? 'bg-gray-900' : ''
                       } text-white  hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
                     >
-                      Post Jobs
+                      Post Job
+                    </Link>
+                  )}
+
+                  {session?.user.role === 'PRO' && (
+                    <Link
+                      href='/leads'
+                      className={`${
+                        pathname === '/jobs/add' ? 'bg-gray-900' : ''
+                      } text-white  hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
+                    >
+                      Leads
+                    </Link>
+                  )}
+                  {session?.user.role === 'PRO' && (
+                    <Link
+                      href='/professionals/add'
+                      className={`${
+                        pathname === '/jobs/add' ? 'bg-gray-900' : ''
+                      } text-white  hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
+                    >
+                      Add Service
                     </Link>
                   )}
                 </div>
@@ -137,10 +162,7 @@ const NavBar = () => {
                       />
                     </svg>
                   </button>
-                  <span className='absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full'>
-                    2
-                    {/* <!-- Replace with the actual number of notifications --> */}
-                  </span>
+                  <UnreadMessageCount session={session} />
                 </Link>
                 {/* <!-- Profile dropdown button --> */}
                 <div className='relative ml-3'>
@@ -179,6 +201,9 @@ const NavBar = () => {
                         role='menuitem'
                         tabIndex='-1'
                         id='user-menu-item-0'
+                        onClick={() => {
+                          setIsProfileMenuOpen(false);
+                        }}
                       >
                         Your Profile
                       </Link>
@@ -188,11 +213,16 @@ const NavBar = () => {
                         role='menuitem'
                         tabIndex='-1'
                         id='user-menu-item-2'
+                        onClick={() => {
+                          setIsProfileMenuOpen(false);
+                        }}
                       >
                         Saved Jobs
                       </Link>
                       <button
-                        onClick={() => signOut()}
+                        onClick={() => {
+                          signOut();
+                        }}
                         className='block px-4 py-2 text-sm text-gray-700'
                         role='menuitem'
                         tabIndex='-1'
@@ -217,25 +247,49 @@ const NavBar = () => {
                 className={`${
                   pathname === '/' ? 'bg-gray-900' : ''
                 }  text-white block rounded-md px-3 py-2 text-base font-medium`}
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                }}
               >
                 Home
               </Link>
+
               <Link
-                href='/jobs'
+                href='/professionals'
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                }}
                 className={`${
-                  pathname === '/jobs' ? 'bg-gray-900' : ''
+                  pathname === '/professionals' ? 'bg-gray-900' : ''
                 } text-white block rounded-md px-3 py-2 text-base font-medium`}
               >
-                Jobs
+                Hire a Pro
               </Link>
-              {session && (
+              {session && session.user.role === 'USER' && (
                 <Link
                   href='/jobs/post'
                   className={`${
                     pathname === '/jobs/post' ? 'bg-gray-900' : ''
                   } text-white block rounded-md px-3 py-2 text-base font-medium`}
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                  }}
                 >
                   Post Jobs
+                </Link>
+              )}
+
+              {session && session.user.role === 'PRO' && (
+                <Link
+                  href='/professionals/add'
+                  className={`${
+                    pathname === '/jobs/post' ? 'bg-gray-900' : ''
+                  } text-white block rounded-md px-3 py-2 text-base font-medium`}
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
+                  Add Service
                 </Link>
               )}
 
@@ -243,6 +297,9 @@ const NavBar = () => {
                 <Link
                   href={'/login'}
                   className='flex items-center text-white bg-indigo-500 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2 '
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                  }}
                 >
                   <FaGoogle className='text-white mr-2' />
                   <span>Login or Register</span>

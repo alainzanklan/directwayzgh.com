@@ -1,12 +1,15 @@
 import Image from 'next/image';
 import React from 'react';
 import Profile from '@/assets/images/profile.png';
-import { FaArrowLeft } from 'react-icons/fa';
+import { FaArrowLeft, FaCheck, FaPaperPlane, FaPhoneAlt } from 'react-icons/fa';
 import { MdOutlineLocationOn } from 'react-icons/md';
 import { TbUserCheck } from 'react-icons/tb';
-import { HiOutlineUsers } from 'react-icons/hi';
+import { HiOutlineUsers, HiOutlineShieldCheck } from 'react-icons/hi';
 import { WiTime9 } from 'react-icons/wi';
+import { FaCediSign } from 'react-icons/fa6';
 import Link from 'next/link';
+import ShareButtons from './ShareButtons';
+import ProContactForm from './ProContactForm';
 
 const Procard = ({ pro }) => {
   return (
@@ -22,33 +25,58 @@ const Procard = ({ pro }) => {
         </div>
       </section>
 
-      {/* <!-- Property Info --> */}
+      {/* <!-- Professional Info --> */}
       <section className='bg-indigo-50 lg:w-4/5 mx-auto'>
         <div className=' m-auto py-10 px-6'>
           <div className='grid grid-cols-1 md:grid-cols-60/40 w-full gap-6 relative'>
             <main>
               <div className='bg-white p-6 rounded-lg shadow-md text-center md:text-left'>
-                <div className='text-gray-500 mb-4'>House Cleaning</div>
                 <div className='grid grid-cols-3 lg:grid-cols-4 gap-2 text-start'>
                   <div className='h-32 w-32 rounded-full col-span-1 justify-self-end p-2 relative'>
                     <Image
-                      src={pro.profile_image}
+                      src={pro.logo[0]}
                       fill
                       alt='profile'
                       className='rounded-full'
+                      sizes='32'
+                      priority={true}
                     />
                   </div>
-                  <div className='col-span-2 lg:grid-cols-3'>
-                    <h1 className=' text-2xl md:text-3xl font-bold mb-4 '>
+                  <div className='col-span-2 lg:col-span-3 lg:grid-cols-3 '>
+                    <div className='text-gray-500 mb-2'>{pro.type}</div>
+                    <h1 className=' flex text-2xl md:text-3xl font-bold mb-2 items-center gap-2 '>
                       {pro.company_info.name}
+                      {pro.licensed && (
+                        <HiOutlineShieldCheck
+                          height={24}
+                          width={24}
+                          className='text-indigo-500'
+                        />
+                      )}
                     </h1>
-                    <div className='flex gap-1 justify-center justify-items-center'>
-                      <p className='text-green-500 text-xs md:text-sm font-semibold md:mb-6'>
+                    <div className='flex gap-1'>
+                      <p className='text-green-500 text-xs md:text-sm font-semibold mb-4'>
                         Exceptional 5.0 ⭐⭐⭐⭐⭐ (16)
                       </p>
-                      <button className='md:border-2 border-gray-300 md:py-2 md:px-6 text-gray-500 font-semibold'>
-                        &uarr; <span className='hidden'>Share</span>
-                      </button>
+                    </div>
+
+                    <div className='flex'>
+                      {pro.licensed && (
+                        <p className='bg-gray-100 text-indigo-500 text-xs md:text-sm font-semibold px-4 py-1 mb-4'>
+                          Licensed Pro
+                        </p>
+                      )}
+                    </div>
+
+                    <div className='flex items-center'>
+                      <FaCediSign
+                        height={8}
+                        width={8}
+                        className='text-gray-500'
+                      />
+                      <p className='text-gray-500 text-xm md:text-md '>
+                        {pro.price} starting price
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -84,7 +112,7 @@ const Procard = ({ pro }) => {
                   </div>
                   <div>
                     <div>
-                      <div>
+                      {/* <div>
                         <h3 className='text-lg font-bold mb-2 md:mb-4'>
                           Scheduling Policy
                         </h3>
@@ -93,22 +121,29 @@ const Procard = ({ pro }) => {
                           They'll need at least 1 day's notice to prepare for
                           the job.
                         </p>
-                      </div>
+                      </div> */}
                       <div>
-                        <h3 className='text-lg font-bold mb-2 md:mb-4 mt-6'>
-                          Payment Methods
+                        <h3 className='text-lg font-bold mb-2 md:mb-4'>
+                          Accepted Payment
                         </h3>
-                        <p className='text-gray-500'>
-                          This pro accepts payments via Cash, Mobile Money and
-                          Cheque.
-                        </p>
+                        <ul className='grid grid-cols-1 list-none text-gray-500 items-center justify-center'>
+                          {pro.payment.map((payment, index) => (
+                            <li key={index} className='flex '>
+                              {' '}
+                              <FaCheck className='inline-block text-gray-500 mr-2 mt-1' />
+                              {payment}
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
               <div className='bg-white p-6 rounded-lg shadow-md mt-6'>
-                <div id='map'></div>
+                <div>
+                  <ShareButtons pro={pro} />
+                </div>
               </div>
             </main>
 
@@ -121,73 +156,7 @@ const Procard = ({ pro }) => {
                   <h3 className='text-xl font-bold mb-6'>
                     {`Contact ${pro.company_info.name}`}
                   </h3>
-                  <form>
-                    <div className='mb-4'>
-                      <label
-                        className='block text-gray-700 text-sm font-bold mb-2'
-                        htmlFor='name'
-                      >
-                        Name:
-                      </label>
-                      <input
-                        className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-                        id='name'
-                        type='text'
-                        placeholder='Enter your name'
-                        required
-                      />
-                    </div>
-                    <div className='mb-4'>
-                      <label
-                        className='block text-gray-700 text-sm font-bold mb-2'
-                        htmlFor='email'
-                      >
-                        Email:
-                      </label>
-                      <input
-                        className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-                        id='email'
-                        type='email'
-                        placeholder='Enter your email'
-                        required
-                      />
-                    </div>
-                    <div className='mb-4'>
-                      <label
-                        className='block text-gray-700 text-sm font-bold mb-2'
-                        htmlFor='phone'
-                      >
-                        Phone:
-                      </label>
-                      <input
-                        className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-                        id='phone'
-                        type='text'
-                        placeholder='Enter your phone number'
-                      />
-                    </div>
-                    <div className='mb-4'>
-                      <label
-                        className='block text-gray-700 text-sm font-bold mb-2'
-                        htmlFor='message'
-                      >
-                        Message:
-                      </label>
-                      <textarea
-                        className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 h-44 focus:outline-none focus:shadow-outline'
-                        id='message'
-                        placeholder='Enter your message'
-                      ></textarea>
-                    </div>
-                    <div>
-                      <button
-                        className='bg-indigo-500 hover:bg-indigo-600 text-indigo-50 font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline flex items-center justify-center'
-                        type='submit'
-                      >
-                        <i className='fas fa-paper-plane mr-2'></i> Send Message
-                      </button>
-                    </div>
-                  </form>
+                  <ProContactForm pro={pro} />
                 </div>
               </div>
             </aside>
