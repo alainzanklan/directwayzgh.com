@@ -11,7 +11,7 @@ import Link from 'next/link';
 import ShareButtons from './ShareButtons';
 import ProContactForm from './ProContactForm';
 
-const Procard = ({ pro }) => {
+const ProCard = ({ pro }) => {
   return (
     <>
       <section>
@@ -167,4 +167,4 @@ const Procard = ({ pro }) => {
   );
 };
 
-export default Procard;
+export default ProCard;
