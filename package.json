@@ -17,7 +17,7 @@
     "mailtrap": "^3.4.0",
     "mongodb": "^6.10.0",
     "mongoose": "^8.7.3",
-    "next": "^15.0.4-canary.33",
+    "next": "^14.2.3",
     "next-auth": "^4.24.10",
     "openssl": "^2.0.0",
     "react": "^18",

@@ -59,7 +59,7 @@ export const DELETE = async (request, { params }) => {
   }
 };
 
-// PT /api/jobs/:id
+// PUT /api/jobs/:id
 export const PUT = async (request, { params }) => {
   try {
     await connectDB();
@@ -107,7 +107,7 @@ export const PUT = async (request, { params }) => {
     const updatedJob = await Job.findByIdAndUpdate(id, jobData);
 
     return new Response(JSON.stringify(updatedJob), {
-      status: 200, 
+      status: 200,
     });
   } catch (error) {
     console.error(error);
