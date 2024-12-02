@@ -42,10 +42,10 @@ const ProCard = ({ pro }) => {
                     />
                   </div>
                   <div className='col-span-2 lg:col-span-3 lg:grid-cols-3 '>
-                    <div className='text-gray-500 mb-2 text-xs md:text-2xl'>
+                    <div className='text-gray-500 mb-2 text-xs md:text-[1em]'>
                       {pro.type}
                     </div>
-                    <h1 className=' flex text-xl md:text-2xl lg:text-3xl font-bold mb-2 items-center gap-2 '>
+                    <h1 className=' flex text-xl md:text-3xl lg:text-2xl font-bold mb-2 items-center gap-2 '>
                       {pro.company_info.name}
                       {pro.licensed && (
                         <HiOutlineShieldCheck
@@ -56,7 +56,7 @@ const ProCard = ({ pro }) => {
                       )}
                     </h1>
                     <div className='flex gap-1'>
-                      <p className='text-green-500 text-xs md:text-sm font-semibold mb-4 flex flex-row items-center'>
+                      <p className='text-green-500 text-xs md:text-[1em] font-semibold mb-4 flex flex-row items-center'>
                         Exceptional 5.0{' '}
                         <MdOutlineStarPurple500
                           height={15}
@@ -81,7 +81,7 @@ const ProCard = ({ pro }) => {
                         width={8}
                         className='text-gray-500'
                       />
-                      <p className='text-gray-500 text-xs md:text-sm md:text-md '>
+                      <p className='text-gray-500 text-xs md:text-xs md:text-[1em] '>
                         {pro.price} starting price
                       </p>
                     </div>

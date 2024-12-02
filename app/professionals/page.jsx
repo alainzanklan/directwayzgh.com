@@ -23,12 +23,12 @@ const prosPage = async () => {
             Recent Professionals
           </h2>
         </div>
-        <div className='md:container m-auto md:px-4 md:max-w-5xl'>
+        <div className='md:container m-auto md:px-4'>
           {pros.length === 0 ? (
             <p>No professionals found</p>
           ) : (
             <>
-              <div className='grid grid-cols-1 md:grid-cols-1 lg:col-span-3'>
+              <div className='grid grid-cols-1 gap-4 md:grid-cols-3'>
                 {pros.map((pros) => (
                   <ProfessionalCard key={pros._id} pros={pros} />
                 ))}

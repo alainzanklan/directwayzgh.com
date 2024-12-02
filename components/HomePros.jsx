@@ -11,12 +11,12 @@ const HomeJobs = async () => {
         <h3 className='text-indigo-500 text-center font-bold text-3xl mb-6'>
           Recent Professionals
         </h3>
-        <div className='container lg:container m-auto px-4 py-6 lg:max-w-5xl'>
+        <div className='container lg:container m-auto px-4 py-6'>
           {recentPros.length === 0 ? (
             <p>No professionals found</p>
           ) : (
             <>
-              <div className='grid grid-cols-1 md:grid-cols-1 lg:col-span-3'>
+              <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
                 {recentPros.map((pros) => (
                   <ProfessionalCard key={pros._id} pros={pros} />
                 ))}
