@@ -1,6 +1,6 @@
 'use client';
 
-import Procard from '@/components/ProCard';
+import ProCard from '@/components/ProCard';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
