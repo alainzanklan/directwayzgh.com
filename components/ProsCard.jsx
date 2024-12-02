@@ -17,18 +17,18 @@ const ProfessionalCard = ({ pros }) => {
   return (
     <Link href={`/professionals/${pros._id}`}>
       <div className='bg-white relative border py-2 px-4 lg:px-4 shadow-md rounded-md'>
-        <div className='grid grid-cols-5 gap-x-10 md:grid-cols-6 '>
-          <div className='relative w-20 h-20 col-span-1'>
+        <div className='grid grid-cols-5 md:gap-x-10 md:grid-cols-6 '>
+          <div className='relative w-20 h-20 col-span-1 overflow-hidden'>
             <Image
               src={pros.logo[0]}
               fill
               alt='profile'
-              className='mt-2 rounded-md object-fill'
+              className='mt-2 rounded-md'
               sizes='20'
               priority={true}
             />
           </div>
-          <div className=' mx-auto py-2 px-4 col-span-4 md:col-span-5'>
+          <div className=' ml-4 mx-auto py-2 px-4 col-span-4 md:col-span-5'>
             <div className='text-gray-600 text-xs mb-1'> {pros.type}</div>
             <div className=''>
               <h3 className='text-xl font-bold'>{pros.company_info.name} </h3>
