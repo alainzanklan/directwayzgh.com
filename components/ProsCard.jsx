@@ -17,7 +17,7 @@ const ProfessionalCard = ({ pros }) => {
   return (
     <Link href={`/professionals/${pros._id}`}>
       <div className='bg-white relative border py-2 px-4 lg:px-4 shadow-md rounded-md'>
-        <div className='grid grid-cols-5 md:grid-cols-6 gap-x-16'>
+        <div className='grid grid-cols-5 gap-x-10 md:grid-cols-6 '>
           <div className='relative w-20 h-20 col-span-1'>
             <Image
               src={pros.logo[0]}
@@ -28,7 +28,7 @@ const ProfessionalCard = ({ pros }) => {
               priority={true}
             />
           </div>
-          <div className=' py-2 px-4 col-span-4 md:col-span-5'>
+          <div className=' mx-auto py-2 px-4 col-span-4 md:col-span-5'>
             <div className='text-gray-600 text-xs mb-1'> {pros.type}</div>
             <div className=''>
               <h3 className='text-xl font-bold'>{pros.company_info.name} </h3>
@@ -60,9 +60,9 @@ const ProfessionalCard = ({ pros }) => {
               </div>
             </div>
 
-            <div className='lg:mb-5 bg-indigo-50 px-4 py-2 text-indigo-900'>
+            {/* <div className='lg:mb-5 bg-indigo-50 px-4 py-2 text-indigo-900'>
               {introduction}
-            </div>
+            </div> */}
           </div>
         </div>
         {/* <div className='lg:mb-5 bg-indigo-50 px-4 py-2 text-indigo-900'>

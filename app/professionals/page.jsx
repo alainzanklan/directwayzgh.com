@@ -17,7 +17,7 @@ const prosPage = async () => {
         </div>
       </section>
 
-      <section className='px-4 py-10 md:bg-indigo-50'>
+      <section className='px-2 py-1 md:bg-indigo-50'>
         <div className='py-6 mb-4'>
           <h2 className='text-3xl font-bold  text-center text-indigo-500'>
             Recent Professionals

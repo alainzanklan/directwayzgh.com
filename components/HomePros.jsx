@@ -7,7 +7,7 @@ const HomeJobs = async () => {
   const recentPros = pros.sort(() => Math.random() - Math.random()).slice(0, 3);
   return (
     <>
-      <section className='px-4 py-10 lg:bg-indigo-50'>
+      <section className='px-2 py-1 lg:bg-indigo-50'>
         <h3 className='text-indigo-500 text-center font-bold text-3xl mb-6'>
           Recent Professionals
         </h3>
