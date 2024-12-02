@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import { FaArrowLeft, FaCheck, FaPaperPlane, FaPhoneAlt } from 'react-icons/fa';
-import { MdOutlineLocationOn } from 'react-icons/md';
+import { MdOutlineLocationOn, MdOutlineStarPurple500 } from 'react-icons/md';
 import { TbUserCheck } from 'react-icons/tb';
 import { HiOutlineUsers, HiOutlineShieldCheck } from 'react-icons/hi';
 import { WiTime9 } from 'react-icons/wi';
@@ -29,21 +29,21 @@ const ProCard = ({ pro }) => {
         <div className=' m-auto py-10 px-6'>
           <div className='grid grid-cols-1 md:grid-cols-60/40 w-full gap-6 relative'>
             <main>
-              <div className='bg-white p-6 rounded-lg shadow-md text-center md:text-left'>
+              <div className='bg-white p-6 rounded-lg shadow-md text-center md:text-left overflow-hidden'>
                 <div className='grid grid-cols-3 lg:grid-cols-4 gap-2 text-start'>
-                  <div className='h-32 w-32 rounded-full col-span-1 justify-self-end p-2 relative'>
+                  <div className='h-32 w-32 rounded-full col-span-1 justify-self-end py-2 px-4 relative'>
                     <Image
                       src={pro.logo[0]}
                       fill
                       alt='profile'
-                      className='rounded-full'
+                      className='rounded-full p-6'
                       sizes='32'
                       priority={true}
                     />
                   </div>
                   <div className='col-span-2 lg:col-span-3 lg:grid-cols-3 '>
-                    <div className='text-gray-500 mb-2'>{pro.type}</div>
-                    <h1 className=' flex text-2xl md:text-3xl font-bold mb-2 items-center gap-2 '>
+                    <div className='text-gray-500 mb-2 text-xs md:text-2xl'>{pro.type}</div>
+                    <h1 className=' flex text-xl md:text-2xl lg:text-3xl font-bold mb-2 items-center gap-2 '>
                       {pro.company_info.name}
                       {pro.licensed && (
                         <HiOutlineShieldCheck
@@ -54,8 +54,14 @@ const ProCard = ({ pro }) => {
                       )}
                     </h1>
                     <div className='flex gap-1'>
-                      <p className='text-green-500 text-xs md:text-sm font-semibold mb-4'>
-                        Exceptional 5.0 ⭐⭐⭐⭐⭐ (16)
+                      <p className='text-green-500 text-xs md:text-sm font-semibold mb-4 flex flex-row items-center'>
+                        Exceptional 5.0{' '}
+                        <MdOutlineStarPurple500
+                          height={15}
+                          width={15}
+                          className='text-yellow-500'
+                        />{' '}
+                        (10)
                       </p>
                     </div>
 
@@ -73,7 +79,7 @@ const ProCard = ({ pro }) => {
                         width={8}
                         className='text-gray-500'
                       />
-                      <p className='text-gray-500 text-xm md:text-md '>
+                      <p className='text-gray-500 text-xs md:text-sm md:text-md '>
                         {pro.price} starting price
                       </p>
                     </div>

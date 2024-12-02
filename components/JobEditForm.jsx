@@ -10,14 +10,14 @@ const JobEditForm = () => {
   const router = useRouter();
 
   const [fields, setFields] = useState({
-    type: 'Carpenters',
-    title: 'need a carpenter',
-    description: 'Need a good carpenter to fix my door',
-    price: '1000₵ - 1500₵',
-    location: 'Ashongman ',
-    company: 'Madiba',
-    contactPhone: '056 989 0090',
-    contactEmail: 'madiba@gmail.com',
+    type: '',
+    title: '',
+    description: '',
+    price: '',
+    location: '',
+    company: '',
+    contactPhone: '',
+    contactEmail: '',
   });
   const [loading, setLoading] = useState(true);
 

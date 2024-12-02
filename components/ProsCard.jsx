@@ -2,6 +2,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { MdOutlineLocationOn } from 'react-icons/md';
+import { MdOutlineStarPurple500 } from 'react-icons/md';
+
 import { useState } from 'react';
 
 const ProfessionalCard = ({ pros }) => {
@@ -10,18 +12,18 @@ const ProfessionalCard = ({ pros }) => {
   let introduction = pros.introduction;
 
   if (!showFullIntroduction) {
-    introduction = introduction.substring(0, 90);
+    introduction = introduction.substring(0, 60);
   }
   return (
-    <div className='bg-white relative border-b py-4 lg:px-4'>
-      <div className='grid grid-cols-5 lg:grid-cols-6 gap-4'>
-        <div className='relative w-24 h-24 py-4 col-span-1 justify-self-end '>
+    <div className='bg-white relative border-b py- lg:px-4 '>
+      <div className='grid grid-cols-5 lg:grid-cols-6 gap-4 p-10'>
+        <div className='relative w-24 h-24 py-4 px-4 col-span-1 justify-self-end'>
           <Image
             src={pros.logo[0]}
             fill
             alt='profile'
-            className='mt-6 ml-4 rounded-full'
-            sizes='32'
+            className='mt-6 rounded-full px-2 '
+            sizes='24'
             priority={true}
           />
         </div>
@@ -30,9 +32,15 @@ const ProfessionalCard = ({ pros }) => {
           <div className='mb-2'>
             <h3 className='text-xl font-bold'>{pros.company_info.name} </h3>
           </div>
-          <div className='mb-2'>
-            <p className='text-green-500 font-semibold'>
-              Exceptional 5.0 ⭐⭐⭐⭐⭐ (10)
+          <div className='mb-2 flex items-center'>
+            <p className='text-green-500 font-semibold flex flex-row'>
+              Exceptional 5.0{' '}
+              <MdOutlineStarPurple500
+                height={15}
+                width={15}
+                className='text-yellow-500'
+              />
+              (10){' '}
             </p>
           </div>
           <div className='flex mb-2 gap-1'>
@@ -53,7 +61,7 @@ const ProfessionalCard = ({ pros }) => {
                   }
                   className='text-indigo-500 mb-5 hover:text-indigo-600'
                 >
-                  {showFullIntroduction && !introduction.length < 90 ? (
+                  {showFullIntroduction && !introduction.length < 60 ? (
                     <span> &nbsp; Less</span>
                   ) : (
                     '...More'
