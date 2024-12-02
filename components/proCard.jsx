@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import React from 'react';
-import Profile from '@/assets/images/profile.png';
 import { FaArrowLeft, FaCheck, FaPaperPlane, FaPhoneAlt } from 'react-icons/fa';
 import { MdOutlineLocationOn } from 'react-icons/md';
 import { TbUserCheck } from 'react-icons/tb';
