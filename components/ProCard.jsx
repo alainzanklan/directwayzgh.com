@@ -29,20 +29,22 @@ const ProCard = ({ pro }) => {
         <div className=' m-auto py-10 px-6'>
           <div className='grid grid-cols-1 md:grid-cols-60/40 w-full gap-6 relative'>
             <main>
-              <div className='bg-white p-6 rounded-lg shadow-md text-center md:text-left overflow-hidden'>
+              <div className='bg-white p-6 rounded-lg shadow-md text-center md:text-left'>
                 <div className='grid grid-cols-3 lg:grid-cols-4 gap-2 text-start'>
-                  <div className='h-32 w-32 rounded-full col-span-1 justify-self-end py-2 px-4 relative'>
+                  <div className='h-28 w-28 rounded-full col-span-1 justify-self-end py-2 relative '>
                     <Image
                       src={pro.logo[0]}
                       fill
                       alt='profile'
-                      className='rounded-full p-6'
-                      sizes='32'
+                      className='rounded-full p-2 object-fill'
+                      sizes='28'
                       priority={true}
                     />
                   </div>
                   <div className='col-span-2 lg:col-span-3 lg:grid-cols-3 '>
-                    <div className='text-gray-500 mb-2 text-xs md:text-2xl'>{pro.type}</div>
+                    <div className='text-gray-500 mb-2 text-xs md:text-2xl'>
+                      {pro.type}
+                    </div>
                     <h1 className=' flex text-xl md:text-2xl lg:text-3xl font-bold mb-2 items-center gap-2 '>
                       {pro.company_info.name}
                       {pro.licensed && (

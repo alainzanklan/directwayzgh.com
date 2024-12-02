@@ -15,24 +15,29 @@ const ProfessionalCard = ({ pros }) => {
     introduction = introduction.substring(0, 60);
   }
   return (
-    <div className='bg-white relative border-b py- lg:px-4 '>
-      <div className='grid grid-cols-5 lg:grid-cols-6 gap-4 p-10'>
-        <div className='relative w-24 h-24 py-4 px-4 col-span-1 justify-self-end'>
+    <div className='bg-white relative border-b py-4 lg:px-4 '>
+      <div className='grid grid-cols-5 lg:grid-cols-6 gap-4'>
+        <div className='relative w-24 h-24 col-span-1 justify-end'>
           <Image
             src={pros.logo[0]}
             fill
             alt='profile'
-            className='mt-6 rounded-full px-2 '
+            className='mt-6 rounded-full'
             sizes='24'
             priority={true}
           />
         </div>
-        <div className='p-4 col-span-4'>
-          <div className='text-gray-600 my-2'> {pros.type}</div>
-          <div className='mb-2'>
-            <h3 className='text-xl font-bold'>{pros.company_info.name} </h3>
+        <div className='ml-4 p-4 col-span-4'>
+          <div className='text-gray-600 my-2 text-xs md:text-xl'>
+            {' '}
+            {pros.type}
           </div>
-          <div className='mb-2 flex items-center'>
+          <div className='mb-2'>
+            <h3 className='text-xl font-bold md:text-2xl'>
+              {pros.company_info.name}{' '}
+            </h3>
+          </div>
+          <div className='mb-2 flex text-xs md:text-xl items-center'>
             <p className='text-green-500 font-semibold flex flex-row'>
               Exceptional 5.0{' '}
               <MdOutlineStarPurple500
