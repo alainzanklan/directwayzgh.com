@@ -1,5 +1,6 @@
 import ProfessionalCard from './ProsCard';
 import { fetchPros } from '@/utils/request';
+import Link from 'next/link';
 
 const HomeJobs = async () => {
   const pros = await fetchPros();
@@ -25,12 +26,12 @@ const HomeJobs = async () => {
         </div>
       </section>
       <section className='m-auto max-w-lg my-10 px-6'>
-        <a
-          href='jobs.html'
+        <Link
+          href='/professionnals'
           className='block bg-black text-white text-center py-4 px-6 rounded-xl hover:bg-gray-700'
         >
           View All Pros
-        </a>
+        </Link>
       </section>{' '}
     </>
   );

@@ -3,6 +3,7 @@ import connectDB from '@/config/database';
 import NextResponse from 'next/server';
 import crypto from 'crypto';
 
+const dynamic = 'force-dynamic';
 export async function POST(req) {
   const { token } = await req.json();
 

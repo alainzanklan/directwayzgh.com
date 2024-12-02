@@ -7,16 +7,16 @@ const Footer = () => {
   return (
     <footer className='bg-gray-200 py-4 mt-24'>
       <div className='container mx-auto flex flex-col md:flex-row items-center justify-between px-4'>
-        <div className='mb-4 md:mb-0'>
+        <div className='mb-4 md:mb-0 px-2'>
           <Image src={logo} alt='Logo' className='h-8 w-auto' />
         </div>
-        <div className='flex flex-wrap justify-center md:justify-start mb-4 md:mb-0'>
+        <div className='flex flex-wrap justify-center md:justify-start mb-4 md:mb-0 px-2'>
           <ul className='flex space-x-4'>
             <li>
-              <Link href='/jobs'>Jobs</Link>
+              <Link href='/professionals'>Pros</Link>
             </li>
             <li>
-              <Link href='/professionals'>Professionals</Link>
+              <Link href='/professionals'>FAQ</Link>
             </li>
             <li>
               <Link href='/terms'>Terms of Service</Link>

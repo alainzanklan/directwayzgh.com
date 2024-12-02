@@ -4,6 +4,8 @@ import NextResponse from 'next/server';
 import crypto from 'crypto';
 import { MailtrapClient } from 'mailtrap';
 
+const dynamic = 'force-dynamic';
+
 export async function POST(req) {
   try {
     const { email } = await req.json();

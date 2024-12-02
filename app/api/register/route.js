@@ -3,6 +3,8 @@ import connectDB from '@/config/database';
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 
+const dynamic = 'force-dynamic';
+
 export async function POST(req) {
   try {
     const { name, email, password, role } = await req.json();

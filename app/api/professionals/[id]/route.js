@@ -1,6 +1,8 @@
 import connectDB from '@/config/database';
 import Pro from '@/models/Pro';
 
+const dynamic = 'force-dynamic';
+
 // GET api/professionals/:id
 
 export const GET = async (request, { params }) => {

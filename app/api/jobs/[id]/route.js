@@ -2,6 +2,8 @@ import connectDB from '@/config/database';
 import Job from '@/models/Job';
 import { getSessionUser } from '@/utils/getSessionUser';
 
+const dynamic = 'force-dynamic';
+
 // GET api/jobs/:id
 
 export const GET = async (request, { params }) => {

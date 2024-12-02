@@ -40,11 +40,7 @@ const ProPage = () => {
   return (
     <>
       {loading && <Spinner loading={loading} />}
-      {!loading && pro && (
-        <>
-          <ProCard pro={pro} />
-        </>
-      )}
+      {!loading && pro && <ProCard pro={pro} />}
     </>
   );
 };

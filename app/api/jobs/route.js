@@ -2,6 +2,8 @@ import connectDB from '@/config/database';
 import Job from '@/models/Job';
 import { getSessionUser } from '@/utils/getSessionUser';
 
+const dynamic = 'force-dynamic';
+
 export const GET = async (request) => {
   try {
     await connectDB();

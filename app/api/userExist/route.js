@@ -2,6 +2,7 @@ import connectDB from '@/config/database';
 import User from '@/models/User';
 import { NextResponse } from 'next/server';
 
+const dynamic = 'force-dynamic';
 export async function POST(req) {
   try {
     await connectDB();

@@ -3,6 +3,8 @@ import Pro from '@/models/Pro';
 import { getSessionUser } from '@/utils/getSessionUser';
 import cloudinary from '@/config/cloudinary';
 
+const dynamic = 'force-dynamic'
+
 // GET api/professionals
 
 export const GET = async (request) => {
