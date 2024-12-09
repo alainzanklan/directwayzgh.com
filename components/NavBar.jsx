@@ -74,17 +74,26 @@ const NavBar = () => {
                   >
                     Home
                   </Link>
-                  {!session ||
-                    (session?.user.role === 'USER' && (
-                      <Link
-                        href='/professionals'
-                        className={`${
-                          pathname === '/professionals' ? 'bg-gray-900' : ''
-                        } text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
-                      >
-                        Hire a Pro
-                      </Link>
-                    ))}
+                  {!session && (
+                    <Link
+                      href='/professionals'
+                      className={`${
+                        pathname === '/professionals' ? 'bg-gray-900' : ''
+                      } text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
+                    >
+                      Hire a Pro
+                    </Link>
+                  )}
+                  {session?.user.role === 'USER' && (
+                    <Link
+                      href='/professionals'
+                      className={`${
+                        pathname === '/professionals' ? 'bg-gray-900' : ''
+                      } text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
+                    >
+                      Hire a Pro
+                    </Link>
+                  )}
 
                   {session?.user.role === 'USER' && (
                     <Link
@@ -207,7 +216,7 @@ const NavBar = () => {
                       >
                         Your Profile
                       </Link>
-                      <Link
+                      {/* <Link
                         href='/jobs/saved'
                         className='block px-4 py-2 text-sm text-gray-700'
                         role='menuitem'
@@ -218,7 +227,7 @@ const NavBar = () => {
                         }}
                       >
                         Saved Jobs
-                      </Link>
+                      </Link> */}
                       <button
                         onClick={() => {
                           signOut();

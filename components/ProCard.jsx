@@ -30,22 +30,22 @@ const ProCard = ({ pro }) => {
           <div className='grid grid-cols-1 md:grid-cols-60/40 w-full gap-6 relative'>
             <main>
               <div className='bg-white p-6 rounded-lg shadow-md text-center md:text-left'>
-                <div className='grid grid-cols-3 lg:grid-cols-4 gap-2 text-start'>
-                  <div className='h-28 w-28 rounded-full col-span-1 justify-self-end py-2 relative '>
+                <div className='grid grid-cols-3 lg:grid-cols-4 gap-2 text-center md:text-left'>
+                  {/* <div className='h-16 w-16 rounded-full col-span-1 justify-self-end py-2 relative '>
                     <Image
                       src={pro.logo[0]}
                       fill
                       alt='profile'
-                      className='rounded-full p-2 object-fill'
-                      sizes='28'
+                      className='rounded-full p-2'
+                      sizes='16'
                       priority={true}
                     />
-                  </div>
-                  <div className='col-span-2 lg:col-span-3 lg:grid-cols-3 '>
-                    <div className='text-gray-500 mb-2 text-xs md:text-[1em]'>
+                  </div> */}
+                  <div className='col-span-3 '>
+                    <div className='text-gray-500 mb-2 md:text-[1em]'>
                       {pro.type}
                     </div>
-                    <h1 className=' flex text-xl md:text-3xl lg:text-2xl font-bold mb-2 items-center gap-2 '>
+                    <h1 className=' flex text-3xl text-slate-700 font-bold mb-2 items-center gap-2 justify-center md:justify-start '>
                       {pro.company_info.name}
                       {pro.licensed && (
                         <HiOutlineShieldCheck
@@ -55,8 +55,8 @@ const ProCard = ({ pro }) => {
                         />
                       )}
                     </h1>
-                    <div className='flex gap-1'>
-                      <p className='text-green-500 text-xs md:text-[1em] font-semibold mb-4 flex flex-row items-center'>
+                    <div className='flex gap-1 justify-center md:justify-start'>
+                      <p className='text-green-500 text-xs md:text-[1em] font-semibold mb-2 flex flex-row items-center'>
                         Exceptional 5.0{' '}
                         <MdOutlineStarPurple500
                           height={15}
@@ -67,22 +67,17 @@ const ProCard = ({ pro }) => {
                       </p>
                     </div>
 
-                    <div className='flex'>
+                    <div className='flex justify-center md:justify-start'>
                       {pro.licensed && (
-                        <p className='bg-gray-100 text-indigo-500 text-xs md:text-sm font-semibold px-4 py-1 mb-4'>
+                        <p className='bg-gray-100 text-indigo-500 text-xs md:text-sm font-semibold px-4 py-1 mb-2'>
                           Licensed Pro
                         </p>
                       )}
                     </div>
 
-                    <div className='flex items-center'>
-                      <FaCediSign
-                        height={8}
-                        width={8}
-                        className='text-gray-500'
-                      />
-                      <p className='text-gray-500 text-xs md:text-xs md:text-[1em] '>
-                        {pro.price} starting price
+                    <div className='flex items-center justify-center md:justify-start'>
+                      <p className='text-gray-500 '>
+                        <strong>{pro.price}₵</strong> starting price
                       </p>
                     </div>
                   </div>
@@ -109,7 +104,9 @@ const ProCard = ({ pro }) => {
                           Background Checked
                         </li>
                         <li className='flex gap-2 items-center'>
-                          <HiOutlineUsers height={15} width={15} /> 1 employee
+                          <HiOutlineUsers height={15} width={15} />{' '}
+                          {pro.employees}{' '}
+                          {pro.employees < 1 ? 'employee' : 'employees'}
                         </li>
                         <li className='flex gap-2 items-center'>
                           <WiTime9 height={15} width={15} />3 years in business

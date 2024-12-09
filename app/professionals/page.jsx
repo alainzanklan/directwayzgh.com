@@ -17,7 +17,7 @@ const prosPage = async () => {
         </div>
       </section>
 
-      <section className='px-2 py-1 md:bg-indigo-50'>
+      <section className='px-2 py-1'>
         <div className='py-6 mb-4'>
           <h2 className='text-3xl font-bold  text-center text-indigo-500'>
             Recent Professionals
@@ -28,7 +28,7 @@ const prosPage = async () => {
             <p>No professionals found</p>
           ) : (
             <>
-              <div className='grid grid-cols-1 gap-4 md:grid-cols-3'>
+              <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
                 {pros.map((pros) => (
                   <ProfessionalCard key={pros._id} pros={pros} />
                 ))}
