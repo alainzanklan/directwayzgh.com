@@ -12,67 +12,67 @@ const FaqPage = () => {
 
   const faqCategories = {
     general: {
-      title: "Général",
+      title: "General",
       icon: <HelpCircle className="w-5 h-5" />,
       color: "blue",
       faqs: [
         {
-          title: 'Qu\'est-ce que votre plateforme ?',
-          desc: "Notre plateforme connecte les particuliers recherchant des services professionnels avec des experts qualifiés. Elle facilite la recherche du bon professionnel selon vos besoins spécifiques et permet une tarification compétitive."
+          title: 'What is your platform?',
+          desc: "Our platform connects individuals looking for professional services with qualified experts. It makes it easy to find the right professional according to your specific needs and enables competitive pricing."
         },
         {
-          title: 'Comment fonctionne la plateforme ?',
-          desc: 'Parcourez notre base de données de professionnels qualifiés, consultez leurs profils, et sélectionnez ceux qui correspondent à vos besoins. Publiez une annonce de projet et les professionnels intéressés pourront postuler.'
+          title: 'How does the platform work?',
+          desc: 'Browse our database of qualified professionals, view their profiles, and select those that match your needs. Post a project listing and interested professionals can apply.'
         },
         {
-          title: 'Y a-t-il des frais pour utiliser la plateforme ?',
-          desc: 'L\'inscription et la navigation sont gratuites. Des frais de service nominaux peuvent s\'appliquer lors d\'une embauche pour soutenir la maintenance et l\'amélioration de la plateforme.'
+          title: 'Are there fees for using the platform?',
+          desc: 'Registration and browsing are free. Nominal service fees may apply when hiring to support platform maintenance and improvements.'
         }
       ]
     },
     professionals: {
-      title: "Pour les Professionnels",
+      title: "For Professionals",
       icon: <Users className="w-5 h-5" />,
       color: "green",
       faqs: [
         {
-          title: 'Comment devenir professionnel sur votre plateforme ?',
-          desc: "Créez un profil détaillant vos compétences, expérience et qualifications. Notre équipe examine votre candidature pour s'assurer qu'elle répond à nos standards de qualité."
+          title: 'How do I become a professional on your platform?',
+          desc: "Create a profile detailing your skills, experience, and qualifications. Our team reviews your application to ensure it meets our quality standards."
         },
         {
-          title: 'Comment les professionnels fixent-ils leurs tarifs ?',
-          desc: "Les professionnels définissent leurs propres tarifs selon le type de service, la complexité et le temps requis. Cette flexibilité permet une tarification adaptée à chaque situation."
+          title: 'How do professionals set their rates?',
+          desc: "Professionals set their own rates based on service type, complexity, and time required. This flexibility allows for pricing tailored to each situation."
         },
         {
-          title: 'Les utilisateurs peuvent-ils négocier les prix ?',
-          desc: 'Oui, la négociation est possible selon les préférences des deux parties. Nous encourageons une communication ouverte pour un accord mutuellement satisfaisant.'
+          title: 'Can users negotiate prices?',
+          desc: 'Yes, negotiation is possible depending on both parties\' preferences. We encourage open communication for a mutually satisfactory agreement.'
         }
       ]
     },
     security: {
-      title: "Sécurité & Qualité",
+      title: "Security & Quality",
       icon: <Shield className="w-5 h-5" />,
       color: "purple",
       faqs: [
         {
-          title: 'Comment assurez-vous la qualité des professionnels ?',
-          desc: 'Nous avons un processus de vérification rigoureux incluant la validation des qualifications, références et historique professionnel pour garantir l\'excellence.'
+          title: 'How do you ensure professional quality?',
+          desc: 'We have a rigorous verification process including validation of qualifications, references, and professional history to guarantee excellence.'
         },
         {
-          title: 'Les utilisateurs peuvent-ils laisser des avis ?',
-          desc: 'Oui, les utilisateurs peuvent laisser des avis et notes sur les professionnels. Cela maintient la transparence et aide les autres à prendre des décisions éclairées.'
+          title: 'Can users leave reviews?',
+          desc: 'Yes, users can leave reviews and ratings for professionals. This maintains transparency and helps others make informed decisions.'
         },
         {
-          title: 'Quelles mesures pour la sécurité des données ?',
-          desc: 'Nous utilisons un cryptage avancé pour protéger les données utilisateur et avons des directives strictes contre les activités frauduleuses. Les identités sont vérifiées.'
+          title: 'What measures ensure data security?',
+          desc: 'We use advanced encryption to protect user data and have strict guidelines against fraudulent activities. Identities are verified.'
         }
       ]
     }
   };
 
   const supportFaq = {
-    title: 'Comment contacter le support client ?',
-    desc: 'Pour toute question ou assistance, contactez notre équipe via la section Contact de notre site, par email ou téléphone. Nous sommes là pour vous aider !'
+    title: 'How do I contact customer support?',
+    desc: 'For any questions or assistance, contact our team through the Contact section of our website, by email, or phone. We\'re here to help!'
   };
 
   const colorClasses = {
@@ -105,10 +105,10 @@ const FaqPage = () => {
             <HelpCircle className="w-8 h-8 text-blue-600" />
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-slate-800 mb-4">
-            Questions Fréquentes
+            Frequently Asked Questions
           </h1>
           <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-            Trouvez rapidement les réponses à vos questions sur notre plateforme et nos services.
+            Quickly find answers to your questions about our platform and services.
           </p>
         </div>
 
@@ -183,7 +183,7 @@ const FaqPage = () => {
                       href="/contact" 
                       className="inline-flex items-center px-4 py-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg transition-colors"
                     >
-                      Page Contact
+                      Contact Page
                     </a>
                     <a 
                       href="mailto:info@directwayzgh.com" 
@@ -201,14 +201,14 @@ const FaqPage = () => {
         {/* Bottom CTA */}
         <div className="text-center mt-16">
           <p className="text-slate-600 mb-6">
-            Vous ne trouvez pas la réponse à votre question ?
+            Can't find the answer to your question?
           </p>
           <a 
             href="/contact" 
             className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
           >
             <Phone className="w-4 h-4" />
-            Contactez-nous
+            Contact Us
           </a>
         </div>
       </div>

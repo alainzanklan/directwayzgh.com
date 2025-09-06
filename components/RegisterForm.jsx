@@ -2,231 +2,15 @@
 
 import { useState } from 'react';
 import { Eye, EyeOff, User, Mail, Lock, AlertCircle, Check, Shield } from 'lucide-react';
-// import Link from 'next/link';
-// import { useState } from 'react';
 import { useSession, signIn, signOut } from 'next-auth/react';
-// import { useRouter } from 'next/navigation';
-// import { FaGoogle, FaSleigh } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
-// import Spinner from '@/components/Spinner';
-
-// function RegisterForm({ role }) {
-//   const [name, setName] = useState('');
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [confirmPassword, setConfirmPassword] = useState('');
-//   const [loading, setLoading] = useState(false);
-//   // const [role, setRole] = useState('');
-//   const { data: session } = useSession('');
-
-//   const router = useRouter();
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     if (!name || !email || !password) {
-//       toast.error('All fields are required');
-//       return;
-//     }
-
-//     if (password !== confirmPassword) {
-//       setConfirmPassword('');
-//       setPassword('');
-
-//       toast.error('Password does not match');
-
-//       return;
-//     }
-
-//     try {
-//       const resUserExist = await fetch(
-//         `${process.env.NEXT_PUBLIC_API_DOMAIN}/userExist`,
-//         {
-//           method: 'POST',
-//           headers: {
-//             'Content-Type': 'application/json',
-//           },
-//           body: JSON.stringify({ email }),
-//         }
-//       );
-
-//       const { user } = await resUserExist.json();
-
-//       if (user) {
-//         toast.error('User already exist');
-
-//         return;
-//       }
-
-//       // setUserRole(role);
-
-//       const res = await fetch(
-//         `${process.env.NEXT_PUBLIC_API_DOMAIN}/register`,
-//         {
-//           method: 'POST',
-//           headers: { 'Content-Type': 'application/json' },
-//           body: JSON.stringify({ name, email, password, role }),
-//         }
-//       );
-
-//       if (res.ok) {
-//         setLoading(true);
-//         toast.success('Account created');
-//         router.push('/login');
-//       } else {
-//         console.log('user registration failed');
-//       }
-//     } catch (error) {
-//       console.log('User registration failed', error);
-//     }
-//   };
-
-//   return (
-//     <>
-//       {loading && <Spinner loading={loading} />}{' '}
-//       {!loading && (
-//         <section className='bg-blue-50 min-h-screen flex-grow'>
-//           <div className='container m-auto max-w-lg py-24'>
-//             <div className='bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0'>
-//               {/* <!-- Register Form--> */}
-//               {role === 'PRO' ? (
-//                 <h2 className='text-3xl text-center font-semibold mb-6'>
-//                   Create Pro Account
-//                 </h2>
-//               ) : (
-//                 <h2 className='text-3xl text-center font-semibold mb-6'>
-//                   Create An Account
-//                 </h2>
-//               )}
-//               {role === 'USER' ? (
-//                 <div className='mb-4'>
-//                   <button
-//                     onClick={() => signIn('google')}
-//                     className='bg-red-500 border hover:bg-red-600 text-red-50 font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline flex items-center justify-center'
-//                     type='submit'
-//                   >
-//                     <FaGoogle className='mr-2' /> Register with Google
-//                   </button>
-//                   <div className='my-6 font-semibold text-center'>
-//                     Or register with your email address
-//                   </div>
-//                 </div>
-//               ) : (
-//                 ''
-//               )}
-
-//               <form onSubmit={handleSubmit}>
-//                 {/* <!-- First Name --> */}
-//                 <div className='mb-4'>
-//                   <label
-//                     htlmfor='Name'
-//                     className='block text-gray-700 font-bold mb-2'
-//                   >
-//                     Name
-//                   </label>
-//                   <input
-//                     type='text'
-//                     id='Name'
-//                     name='Name'
-//                     className='border rounded w-full py-2 px-3 mb-2'
-//                     placeholder='Full Name'
-//                     value={name}
-//                     onChange={(e) => setName(e.target.value)}
-//                   />
-//                 </div>
-
-//                 {/* <!-- Username --> */}
-//                 <div className='mb-4'>
-//                   <label
-//                     htlmfor='email'
-//                     className='block text-gray-700 font-bold mb-2'
-//                   >
-//                     Email
-//                   </label>
-//                   <input
-//                     type='email'
-//                     id='email'
-//                     name='email'
-//                     className='border rounded w-full py-2 px-3 mb-2'
-//                     placeholder='Email address'
-//                     value={email}
-//                     onChange={(e) => setEmail(e.target.value)}
-//                   />
-//                 </div>
-//                 {/* 
-//           <!-- Password --> */}
-//                 <div className='mb-4'>
-//                   <label
-//                     htlmfor='password'
-//                     className='block text-gray-700 font-bold mb-2'
-//                   >
-//                     Password
-//                   </label>
-//                   <input
-//                     type='password'
-//                     id='password'
-//                     name='password'
-//                     className='border rounded w-full py-2 px-3 mb-2'
-//                     placeholder='Password'
-//                     value={password}
-//                     onChange={(e) => setPassword(e.target.value)}
-//                   />
-//                 </div>
-//                 {/* 
-//           <!-- Password --> */}
-//                 <div className='mb-4'>
-//                   <label
-//                     htlmfor='Passowrd'
-//                     className='block text-gray-700 font-bold mb-2'
-//                   >
-//                     Confirm Password
-//                   </label>
-//                   <input
-//                     type='Password'
-//                     id='confirmPassword'
-//                     name='confirmPassword'
-//                     className='border rounded w-full py-2 px-3 mb-2'
-//                     placeholder='Confirm Password'
-//                     value={confirmPassword}
-//                     onChange={(e) => setConfirmPassword(e.target.value)}
-//                   />
-//                 </div>
-
-//                 {/* <!-- Submit Button --> */}
-//                 <div>
-//                   <button
-//                     className='bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline'
-//                     type='submit'
-//                   >
-//                     Sign Up
-//                   </button>
-//                 </div>
-//               </form>
-
-//               <Link href={'/login'}>
-//                 <p className='flex p-2 gap-2 justify-end mt-4'>
-//                   {' '}
-//                   Already have an account?{' '}
-//                   <span className='underline'>Login</span>
-//                 </p>
-//               </Link>
-//             </div>
-//           </div>
-//           <div className='mx-10'>
-//             User Details :{session && <div>{JSON.stringify(session)}</div>}
-//             {!session && <div>Not logged in</div>}
-//           </div>
-//         </section>
-//       )}
-//     </>
-//   );
-// }
-
-// export default RegisterForm;
-
 
 
 const RegisterForm = ({ role = 'USER' }) => {
+
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -311,74 +95,117 @@ const RegisterForm = ({ role = 'USER' }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async () => {
-    if (!validateForm()) return;
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  
+  if (!validateForm()) return;
 
-    setIsSubmitting(true);
+  setIsSubmitting(true);
 
-    try {
-      // Check if user already exists
-      const resUserExist = await fetch(
-        `${process.env.NEXT_PUBLIC_API_DOMAIN}/userExist`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({email: formData.email }),
-        }
-      );
-
-      const { user } = await resUserExist.json();
-
-      if (user) {
-        toast.error('User already exists');
-        return;
+  try {
+    // Check if user already exists
+    const resUserExist = await fetch(
+      `${process.env.NEXT_PUBLIC_API_DOMAIN}/userExist`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: formData.email }),
       }
+    );
 
-      // Register the user
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_DOMAIN}/register`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-            name: formData.name, 
-            email: formData.email, 
-            password: formData.password, 
-            role: role 
-          }),
-        }
-      );
-
-      if (res.ok) {
-        toast.success('Account created successfully');
-        
-        // Auto login after successful registration
-        const result = await signIn('credentials', {
-          email: formData.email,
-          password: formData.password,
-          redirect: false,
-        });
-
-        if (result?.ok) {
-          toast.success('Logged in successfully');
-          // Optional: redirect to dashboard or home page
-          router.push('/');
-        } else {
-          toast.error('Registration successful, but auto-login failed. Please login manually.');
-        }
-      } else {
-        console.log('user registration failed');
-        toast.error('Registration failed. Please try again.');
-      }
-    } catch (error) {
-      console.log('User registration failed', error);
-      toast.error('An error occurred during registration');
-    } finally {
-      setIsSubmitting(false);
+    // Handle userExist API errors
+    if (!resUserExist.ok) {
+      console.error('User exist check failed:', resUserExist.status);
+      toast.error('Unable to verify user. Please try again.');
+      return;
     }
-  };
+
+    const userExistData = await resUserExist.json();
+
+    // Check if user already exists
+    if (userExistData.user) {
+      toast.error('User already exists');
+      return;
+    }
+
+    // Register the user
+    const registerRes = await fetch(
+      `${process.env.NEXT_PUBLIC_API_DOMAIN}/register`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          name: formData.name, 
+          email: formData.email, 
+          password: formData.password, 
+          role: role 
+        }),
+      }
+    );
+
+    // DEBUG: Log response details
+    console.log('Registration Response Status:', registerRes.status);
+    console.log('Registration Response OK:', registerRes.ok);
+
+    // Handle registration API errors
+    if (!registerRes.ok) {
+      const errorData = await registerRes.json().catch(() => ({}));
+      console.error('Registration failed:', registerRes.status, errorData);
+      
+      // Show specific error message from API if available
+      const errorMessage = errorData.message || 'Registration failed. Please try again.';
+      toast.error(errorMessage);
+      return;
+    }
+
+    // Registration successful
+    const registerData = await registerRes.json();
+    console.log('Registration successful:', registerData);
+    toast.success('Account created successfully');
+    
+    // Auto login after successful registration
+    try {
+      const loginResult = await signIn('credentials', {
+        email: formData.email,
+        password: formData.password,
+        redirect: false,
+      });
+
+      if (loginResult?.ok) {
+        toast.success('Logged in successfully');
+        // Reset form
+        setFormData({ name: '', email: '', password: '' });
+        // Redirect to dashboard or home page
+        router.push('/');
+      } else if (loginResult?.error) {
+        console.error('Auto-login failed:', loginResult.error);
+        toast.warning('Registration successful! Please login manually.');
+        router.push('/login');
+      } else {
+        toast.warning('Registration successful! Please login manually.');
+        router.push('/login');
+      }
+    } catch (loginError) {
+      console.error('Auto-login error:', loginError);
+      toast.warning('Registration successful! Please login manually.');
+      router.push('/login');
+    }
+
+  } catch (networkError) {
+    console.error('Network error during registration:', networkError);
+    
+    // Different messages for different types of errors
+    if (networkError.name === 'TypeError') {
+      toast.error('Network error. Please check your connection and try again.');
+    } else {
+      toast.error('An unexpected error occurred. Please try again.');
+    }
+  } finally {
+    setIsSubmitting(false);
+  }
+};
     
   
 

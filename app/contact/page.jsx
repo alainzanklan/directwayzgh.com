@@ -20,16 +20,16 @@ const ContactPage = () => {
 
   const handleSubmit = async () => {
     if (!formData.name || !formData.email || !formData.message) {
-      alert('Veuillez remplir tous les champs');
+      alert('Please fill in all fields');
       return;
     }
     
     setIsSubmitting(true);
     
-    // Simulation d'envoi
+    // Simulated submission
     await new Promise(resolve => setTimeout(resolve, 1000));
     
-    alert('Message envoyé avec succès !');
+    alert('Message sent successfully!');
     setFormData({ name: '', email: '', message: '' });
     setIsSubmitting(false);
   };
@@ -40,19 +40,19 @@ const ContactPage = () => {
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-6xl font-bold text-slate-800 mb-4">
-            Contactez-nous
+            Contact Us
           </h1>
           <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-            Une question ? Un projet ? N'hésitez pas à nous écrire, nous vous répondrons rapidement.
+            Have a question? A project? Don't hesitate to reach out - we'll get back to you quickly.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Informations de contact */}
+          {/* Contact Information */}
           <div className="space-y-8">
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
               <h2 className="text-2xl font-semibold text-slate-800 mb-8">
-                Nos coordonnées
+                Our Contact Details
               </h2>
               
               <div className="space-y-6">
@@ -61,7 +61,7 @@ const ContactPage = () => {
                     <Phone className="w-5 h-5 text-blue-600" />
                   </div>
                   <div>
-                    <p className="font-semibold text-slate-800">Support Client</p>
+                    <p className="font-semibold text-slate-800">Customer Support</p>
                     <a href="tel:+233245222000" className="text-blue-600 hover:text-blue-800 transition-colors">
                       +233 245 222 0000
                     </a>
@@ -85,45 +85,45 @@ const ContactPage = () => {
                     <MapPin className="w-5 h-5 text-purple-600" />
                   </div>
                   <div>
-                    <p className="font-semibold text-slate-800">Localisation</p>
+                    <p className="font-semibold text-slate-800">Location</p>
                     <p className="text-slate-600">Accra, Ghana</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Horaires */}
+            {/* Business Hours */}
             <div className="bg-white rounded-2xl p-8 shadow-lg">
               <h3 className="text-xl font-semibold text-slate-800 mb-4">
-                Horaires d'ouverture
+                Business Hours
               </h3>
               <div className="space-y-2 text-slate-600">
                 <div className="flex justify-between">
-                  <span>Lundi - Vendredi</span>
-                  <span className="font-medium">8h00 - 18h00</span>
+                  <span>Monday - Friday</span>
+                  <span className="font-medium">8:00 AM - 6:00 PM</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Samedi</span>
-                  <span className="font-medium">9h00 - 15h00</span>
+                  <span>Saturday</span>
+                  <span className="font-medium">9:00 AM - 3:00 PM</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Dimanche</span>
-                  <span className="font-medium text-red-500">Fermé</span>
+                  <span>Sunday</span>
+                  <span className="font-medium text-red-500">Closed</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Formulaire */}
+          {/* Form */}
           <div className="bg-white rounded-2xl p-8 shadow-lg">
             <h2 className="text-2xl font-semibold text-slate-800 mb-8">
-              Envoyez-nous un message
+              Send Us a Message
             </h2>
 
             <div className="space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">
-                  Nom complet
+                  Full Name
                 </label>
                 <input
                   type="text"
@@ -132,7 +132,7 @@ const ContactPage = () => {
                   value={formData.name}
                   onChange={handleChange}
                   className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                  placeholder="Votre nom complet"
+                  placeholder="Your full name"
                 />
               </div>
 
@@ -147,7 +147,7 @@ const ContactPage = () => {
                   value={formData.email}
                   onChange={handleChange}
                   className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                  placeholder="votre.email@example.com"
+                  placeholder="your.email@example.com"
                 />
               </div>
 
@@ -162,7 +162,7 @@ const ContactPage = () => {
                   onChange={handleChange}
                   rows={5}
                   className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
-                  placeholder="Décrivez votre demande ou projet..."
+                  placeholder="Describe your request or project..."
                 />
               </div>
 
@@ -176,7 +176,7 @@ const ContactPage = () => {
                 ) : (
                   <Send className="w-5 h-5" />
                 )}
-                {isSubmitting ? 'Envoi...' : 'Envoyer le message'}
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </button>
             </div>
           </div>

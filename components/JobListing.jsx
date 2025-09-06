@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { MapPin, DollarSign, Clock, ChevronRight } from 'lucide-react';
+import { MapPin, Banknote, Clock, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
 const JobListing = ({ job }) => {
@@ -12,6 +12,45 @@ const JobListing = ({ job }) => {
   if (!showFullDescription) {
     description = description.substring(0, 90) + '...';
   }
+
+const formatRelativeDate = (createdAt) => {
+  const now = new Date();
+  const postDate = new Date(createdAt);
+  const diffInMs = now - postDate;
+  
+  // Convert milliseconds to different time units
+  const msInMinute = 60 * 1000;
+  const msInHour = 60 * msInMinute;
+  const msInDay = 24 * msInHour;
+  const msInWeek = 7 * msInDay;
+  const msInMonth = 30 * msInDay; // Approximate
+  const msInYear = 365 * msInDay; // Approximate
+  
+  // Calculate time differences
+  const diffInMinutes = Math.floor(diffInMs / msInMinute);
+  const diffInHours = Math.floor(diffInMs / msInHour);
+  const diffInDays = Math.floor(diffInMs / msInDay);
+  const diffInWeeks = Math.floor(diffInMs / msInWeek);
+  const diffInMonths = Math.floor(diffInMs / msInMonth);
+  const diffInYears = Math.floor(diffInMs / msInYear);
+  
+  // Return appropriate format based on time elapsed
+  if (diffInMinutes < 1) {
+    return 'Just now';
+  } else if (diffInMinutes < 60) {
+    return `${diffInMinutes} minute${diffInMinutes === 1 ? '' : 's'} ago`;
+  } else if (diffInHours < 24) {
+    return `${diffInHours} hour${diffInHours === 1 ? '' : 's'} ago`;
+  } else if (diffInDays < 7) {
+    return `${diffInDays} day${diffInDays === 1 ? '' : 's'} ago`;
+  } else if (diffInDays < 30) {
+    return `${diffInWeeks} week${diffInWeeks === 1 ? '' : 's'} ago`;
+  } else if (diffInDays < 365) {
+    return `${diffInMonths} month${diffInMonths === 1 ? '' : 's'} ago`;
+  } else {
+    return `${diffInYears} year${diffInYears === 1 ? '' : 's'} ago`;
+  }
+};
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-md hover:border-gray-300 transition-all duration-200 group">
@@ -24,7 +63,7 @@ const JobListing = ({ job }) => {
             </span>
             <div className="flex items-center text-xs text-gray-500">
               <Clock className="w-3 h-3 mr-1" />
-              <span>Posted recently</span>
+              <span>{formatRelativeDate(job.createdAt)}</span>
             </div>
           </div>
           <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
@@ -50,7 +89,7 @@ const JobListing = ({ job }) => {
         {/* Price Section */}
         <div className="mb-4">
           <div className="flex items-center text-green-600 font-semibold">
-            <DollarSign className="w-4 h-4 mr-1" />
+            <Banknote className="w-4 h-4 mr-1" />
             <span>{job.price}</span>
           </div>
         </div>

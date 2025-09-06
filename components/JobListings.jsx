@@ -120,7 +120,7 @@ const JobListings = ({ isLeads }) => {
             ) : (
               <>
                 {/* Stats and Controls */}
-                <StatsBar jobCount={jobs.length} isLeads={isLeads} />
+                {/* <StatsBar jobCount={jobs.length} isLeads={isLeads} /> */}
 
                 {/* Job Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">

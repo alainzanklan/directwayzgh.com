@@ -1,40 +1,46 @@
 import Infobox from './Infobox';
 
 const Infoboxes = () => {
-  return (
-    <>
-      <section className='py-4'>
-        <div className='container-xl lg:container m-auto'>
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-4 p-4 rounded-lg'>
-            <Infobox
-              heading='For Professionals'
-              backgroundColor='bg-gray-100'
-              buttonInfo={{
-                text: 'Become a Pro',
-                link: '/register-pro',
-                backgroundColor: 'bg-black',
-              }}
-            >
-              {' '}
-              Browse our jobs, showcase your skills and boost your career today{' '}
-            </Infobox>
+  const infoData = [
+    {
+      heading: 'For Professionals',
+      description: 'Browse jobs, showcase your skills and boost your career today',
+      backgroundColor: 'bg-gray-50',
+      button: {
+        text: 'Become a Pro',
+        link: '/register-pro',
+        backgroundColor: 'bg-gray-900',
+      }
+    },
+    {
+      heading: 'For Employers', 
+      description: 'List your project, set your price and find the perfect pro',
+      backgroundColor: 'bg-blue-50',
+      button: {
+        text: 'Hire a Pro',
+        link: '/professionals',
+        backgroundColor: 'bg-blue-600',
+      }
+    }
+  ];
 
+  return (
+    <section className="py-16 px-4">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {infoData.map((info, index) => (
             <Infobox
-              heading='For Employers'
-              backgroundColor='bg-indigo-100'
-              buttonInfo={{
-                text: 'Hire a Pro',
-                link: '/professionals',
-                backgroundColor: 'bg-indigo-600',
-              }}
+              key={index}
+              heading={info.heading}
+              backgroundColor={info.backgroundColor}
+              buttonInfo={info.button}
             >
-              List your project, fixe your price and find the perfect pro for
-              the role
+              {info.description}
             </Infobox>
-          </div>
+          ))}
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 };
 

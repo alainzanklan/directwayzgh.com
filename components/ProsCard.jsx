@@ -57,7 +57,7 @@ const ProfessionalCard = ({ pros }) => {
           <div className="space-y-1">
             <div className="flex items-center text-gray-500 text-sm">
               <MdOutlineLocationOn className="w-4 h-4 mr-1" />
-              {pros.location.city}, {pros.location.state}
+              {pros.location.city}
             </div>
             <p className="text-sm">
               <span className="font-semibold text-gray-900">{pros.price}₵</span>
