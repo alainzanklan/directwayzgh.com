@@ -67,7 +67,7 @@ const ProfessionalCard = ({ pros }) => {
           
           <Link
             href={`/professionals/${pros._id}`}
-            className="inline-flex items-center px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 transition-colors duration-200"
+            className="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-colors duration-200"
           >
             View Profile
           </Link>

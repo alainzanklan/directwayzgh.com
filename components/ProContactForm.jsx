@@ -72,7 +72,7 @@ const ProContactForm = ({ pro }) => {
         <p className="text-gray-600 mb-4">
           You must be logged in to contact {pro.company_info.name}
         </p>
-        <Link className="text-indigo-600 hover:text-indigo-800 font-medium" href="/login">
+        <Link className="text-blue-600 hover:text-blue-800 font-medium" href="/login">
           Sign in to continue
         </Link>
       </div>
@@ -90,7 +90,7 @@ const ProContactForm = ({ pro }) => {
         </p>
         <button 
           onClick={() => setWasSubmitted(false)}
-          className="text-indigo-600 hover:text-indigo-800 text-sm"
+          className="text-blue-600 hover:text-blue-800 text-sm"
         >
           Send another message
         </button>
@@ -114,7 +114,7 @@ const ProContactForm = ({ pro }) => {
             onChange={handleInputChange}
             placeholder="Enter your name"
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
           />
         </div>
 
@@ -131,7 +131,7 @@ const ProContactForm = ({ pro }) => {
             onChange={handleInputChange}
             placeholder="Enter your email"
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
           />
         </div>
 
@@ -148,7 +148,7 @@ const ProContactForm = ({ pro }) => {
             onChange={handleInputChange}
             placeholder="Enter your phone number"
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
           />
         </div>
 
@@ -165,7 +165,7 @@ const ProContactForm = ({ pro }) => {
             placeholder="Describe your project or ask a question..."
             required
             rows={4}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors resize-none"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none"
           />
         </div>
 
@@ -173,7 +173,7 @@ const ProContactForm = ({ pro }) => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white font-medium py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
+          className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-medium py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
         >
           {isSubmitting ? (
             <>

@@ -9,7 +9,7 @@ const HomeJobs = async () => {
     .slice(0, 3);
 
   return (
-    <section className="py-12 px-4">
+    <section className="mb-12 px-4">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
           Recent Professionals

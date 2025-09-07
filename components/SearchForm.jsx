@@ -58,7 +58,7 @@ const SearchForm = () => {
       </div>
       <button
         type='submit'
-        className='mt-4  md:mt-0 w-full md:w-auto px-6 py-3 rounded-lg  bg-indigo-500 text-white hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-500'
+        className='mt-4  md:mt-0 w-full md:w-auto px-6 py-3 rounded-lg  bg-blue-700 text-white hover:bg-blue-800 focus:outline-none focus:ring focus:ring-indigo-500'
       >
         Search
       </button>

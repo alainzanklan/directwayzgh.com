@@ -66,9 +66,9 @@ const ForgotPasswordForm = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        {/* Back to Login */}
+        {/* Back to Login *
         <Link 
           href="/login"
           className="inline-flex items-center gap-2 text-gray-600 hover:text-indigo-600 transition-colors mb-8 group"
@@ -84,7 +84,7 @@ const ForgotPasswordForm = () => {
               <>
                 {/* Header */}
                 <div className="text-center mb-8">
-                  <div className="mx-auto w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
+                  <div className="mx-auto w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
                     <Mail className="w-8 h-8 text-white" />
                   </div>
                   <h1 className="text-3xl font-bold text-gray-900 mb-2">Forgot Password?</h1>
@@ -124,7 +124,7 @@ const ForgotPasswordForm = () => {
                   <button
                     type="submit"
                     disabled={!isValidEmail || loading}
-                    className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 px-6 rounded-2xl font-medium hover:from-indigo-600 hover:to-purple-700 focus:ring-4 focus:ring-indigo-200 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group"
+                    className="w-full bg-gradient-to-r from-blue-500 to-cyan-600 text-white py-3 px-6 rounded-2xl font-medium hover:from-blue-600 hover:to-cyan-700 focus:ring-4 focus:ring-blue-200 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group"
                   >
                     <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     <span>Send Reset Link</span>
@@ -158,7 +158,7 @@ const ForgotPasswordForm = () => {
                   
                   <Link 
                     href="/login"
-                    className="block w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white py-3 px-6 rounded-2xl font-medium text-center transition-all duration-200"
+                    className="block w-full bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white py-3 px-6 rounded-2xl font-medium text-center transition-all duration-200"
                   >
                     Back to login
                   </Link>
@@ -172,7 +172,7 @@ const ForgotPasswordForm = () => {
         <div className="text-center mt-8 text-sm text-gray-500">
           <p>
             Remember your password?{' '}
-            <Link href="/login" className="text-indigo-600 hover:text-indigo-800 font-medium">
+            <Link href="/login" className="text-blue-600 hover:text-blue-800 font-medium">
               Sign in here
             </Link>
           </p>

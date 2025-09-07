@@ -19,7 +19,7 @@ const NavBar = () => {
   const navItems = [
     { href: '/', label: 'Home', show: true },
     { href: '/professionals', label: 'Hire a Pro', show: !session || session.user.role === 'USER' },
-    { href: '/jobs/add', label: 'Post Job', show: session?.user.role === 'USER' },
+    { href: '/jobs/post', label: 'Post Job', show: session?.user.role === 'USER' },
     { href: '/leads', label: 'Find a Job', show: !session ||session?.user.role === 'PRO' },
     { href: '/professionals/add', label: 'Add Service', show: session?.user.role === 'PRO' },
   ];

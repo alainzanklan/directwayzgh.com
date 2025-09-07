@@ -11,6 +11,7 @@ import Image from 'next/image';
 import logo from '@/assets/images/logo.png';
 
 
+
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -23,8 +24,8 @@ const LoginForm = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (sessionStatus === 'authenticated') {
-      router.replace('/');
+    if (session || sessionStatus === 'authenticated') {
+      router.redirect('/');
     }
   }, [sessionStatus, router]);
 
@@ -141,7 +142,7 @@ const LoginForm = () => {
                       setEmail(e.target.value);
                       validateField('email', e.target.value);
                     }}
-                    className={`w-full pl-10 pr-4 py-3 border rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 outline-none ${
+                    className={`w-full pl-10 pr-4 py-3 border rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 outline-none ${
                       errors.email ? 'border-red-300 bg-red-50' : 'border-gray-200 hover:border-gray-300'
                     }`}
                     placeholder="Enter your email"
@@ -169,7 +170,7 @@ const LoginForm = () => {
                       setPassword(e.target.value);
                       validateField('password', e.target.value);
                     }}
-                    className={`w-full pl-10 pr-12 py-3 border rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 outline-none ${
+                    className={`w-full pl-10 pr-12 py-3 border rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 outline-none ${
                       errors.password ? 'border-red-300 bg-red-50' : 'border-gray-200 hover:border-gray-300'
                     }`}
                     placeholder="Enter your password"
@@ -178,7 +179,7 @@ const LoginForm = () => {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center hover:text-indigo-600 transition-colors"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center hover:text-blue-600 transition-colors"
                   >
                     {showPassword ? (
                       <EyeOff className="h-5 w-5 text-gray-400" />
@@ -196,7 +197,7 @@ const LoginForm = () => {
               <div className="text-right">
                 <Link 
                   href="/forget-password"
-                  className="text-sm text-indigo-600 hover:text-indigo-800 font-medium transition-colors"
+                  className="text-sm text-blue-600 hover:text-blue-800 font-medium transition-colors"
                 >
                   Forgot password?
                 </Link>
@@ -206,7 +207,7 @@ const LoginForm = () => {
               <button
                 type="submit"
                 disabled={loading || !isFormValid}
-                className="w-full bg-gradient-to-r from-indigo-500 to-blue-600 text-white py-3 px-6 rounded-2xl font-medium hover:from-indigo-600 hover:to-purple-700 focus:ring-4 focus:ring-indigo-200 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group"
+                className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 px-6 rounded-2xl font-medium hover:from-blue-600 hover:to-cyan-700 focus:ring-4 focus:ring-indigo-200 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group"
               >
                 {loading ? (
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
@@ -226,7 +227,7 @@ const LoginForm = () => {
               Don't have an account?{' '}
               <Link 
                 href="/register"
-                className="text-indigo-600 hover:text-indigo-800 font-medium transition-colors"
+                className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
               >
                 Create one here
               </Link>

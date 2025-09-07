@@ -22,7 +22,7 @@ const ProsPage = async () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="bg-gray-900 py-16">
+      <section className="bg-gray-900 py-16 bg-[url('/hero-pro.jpg')] bg-cover bg-center bg-blend-overlay opacity-90">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center text-white mb-10">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">

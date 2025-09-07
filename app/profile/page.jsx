@@ -170,7 +170,7 @@ const ProfilePage = () => {
                     Your Listings
                   </h2>
                   <Link
-                    href="/jobs/add"
+                    href="/jobs/post"
                     className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
                   >
                     <Plus className="w-4 h-4" />
@@ -186,7 +186,7 @@ const ProfilePage = () => {
                     <h3 className="text-lg font-medium text-gray-900 mb-2">No job listings yet</h3>
                     <p className="text-gray-600 mb-6">Get started by creating your first job listing</p>
                     <Link
-                      href="/jobs/add"
+                      href="/jobs/post"
                       className="inline-flex items-center gap-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                     >
                       <Plus className="w-4 h-4" />

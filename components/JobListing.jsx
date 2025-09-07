@@ -10,7 +10,7 @@ const JobListing = ({ job }) => {
   let description = job.description;
 
   if (!showFullDescription) {
-    description = description.substring(0, 90) + '...';
+    description = description?.substring(0, 90) + '...'; 
   }
 
 const formatRelativeDate = (createdAt) => {
@@ -52,6 +52,7 @@ const formatRelativeDate = (createdAt) => {
   }
 };
 
+ 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-md hover:border-gray-300 transition-all duration-200 group">
       <div className="p-6">
@@ -102,7 +103,7 @@ const formatRelativeDate = (createdAt) => {
           {/* Location */}
           <div className="flex items-center text-gray-500 text-sm">
             <MapPin className="w-4 h-4 mr-2 text-gray-400" />
-            <span className="truncate">{job.location}</span>
+            <span className="truncate">{job.location.length < 9 ? job.location : job.location.substring(0,9) + '...'}</span>
           </div>
 
           {/* Action Button */}

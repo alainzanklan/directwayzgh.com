@@ -18,7 +18,7 @@ const ProCard = ({ pro }) => {
       <div className="max-w-6xl mx-auto px-6 py-6">
         <Link
           href="/professionals"
-          className="inline-flex items-center text-indigo-600 hover:text-indigo-800 transition-colors"
+          className="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors"
         >
           <FaArrowLeft className="mr-2" />
           Back to Professionals
@@ -57,7 +57,7 @@ const ProCard = ({ pro }) => {
                       {pro.company_info.name}
                     </h1>
                     {pro.licensed && (
-                      <HiOutlineShieldCheck className="w-6 h-6 text-indigo-500" />
+                      <HiOutlineShieldCheck className="w-6 h-6 text-blue-500" />
                     )}
                   </div>
                   
@@ -71,7 +71,7 @@ const ProCard = ({ pro }) => {
                   {/* Badges and Price */}
                   <div className="flex flex-wrap items-center gap-3">
                     {pro.licensed && (
-                      <span className="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium">
+                      <span className="bg-indigo-50 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
                         Licensed Pro
                       </span>
                     )}
@@ -154,7 +154,7 @@ const ProCard = ({ pro }) => {
                     onClick={() => setActiveTab('contact')}
                     className={`flex-1 px-4 py-3 text-sm font-medium text-center transition-colors ${
                       activeTab === 'contact'
-                        ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50'
+                        ? 'text-indigo-600 border-b-2 border-blue-600 bg-blue-50'
                         : 'text-gray-500 hover:text-gray-700'
                     }`}
                   >
@@ -165,7 +165,7 @@ const ProCard = ({ pro }) => {
                     onClick={() => setActiveTab('booking')}
                     className={`flex-1 px-4 py-3 text-sm font-medium text-center transition-colors ${
                       activeTab === 'booking'
-                        ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50'
+                        ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50'
                         : 'text-gray-500 hover:text-gray-700'
                     }`}
                   >
