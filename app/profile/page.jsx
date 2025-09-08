@@ -154,7 +154,7 @@ const ProfilePage = () => {
 
                   <div className="pt-2">
                     <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
-                      {profileRole === 'USER' ? 'User' : 'Admin'}
+                      {profileRole === 'USER' ? 'USER' : 'PRO'}
                     </span>
                   </div>
                 </div>

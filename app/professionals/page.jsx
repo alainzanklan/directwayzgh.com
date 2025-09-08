@@ -2,6 +2,7 @@ import ProfessionalCard from '@/components/ProsCard';
 import { fetchPros } from '@/utils/request';
 import SearchForm from '@/components/SearchForm';
 import { Users, Filter } from 'lucide-react';
+import Link from 'next/link';
 
 const EmptyState = () => (
   <div className="text-center py-20">
@@ -104,12 +105,16 @@ const ProsPage = async () => {
             Join our network and connect with clients looking for your services
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href={'/register-pro'}>
             <button className="px-8 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors">
               Join as Professional
             </button>
+            </Link>
+            <Link href={'/about-us'}>
             <button className="px-8 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
               Learn More
             </button>
+            </Link>
           </div>
         </div>
       </section>

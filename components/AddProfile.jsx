@@ -29,7 +29,6 @@ const AddProfile = () => {
 
     if (name.includes('.')) {
       const [outerKey, innerKey] = name.split('.');
-
       setFields((prevFields) => ({
         ...prevFields,
         [outerKey]: { ...prevFields[outerKey], [innerKey]: value },
@@ -38,356 +37,286 @@ const AddProfile = () => {
       setFields((prevFields) => ({ ...prevFields, [name]: value }));
     }
   };
+
   const handlePaymentChange = (e) => {
     const { value, checked } = e.target;
-
-    // Clone the current array
-
     const updatedPayment = [...fields.payment];
 
     if (checked) {
-      // Add value to the array
       updatedPayment.push(value);
     } else {
-      // remove value from array
       const index = updatedPayment.indexOf(value);
       if (index !== -1) {
         updatedPayment.splice(index, 1);
       }
     }
-    // Update state with updated array
+
     setFields((prevFields) => ({
       ...prevFields,
       payment: updatedPayment,
     }));
   };
+
   const handleImageChange = (e) => {
     const { files } = e.target;
-
     const updatedImages = [...fields.logo];
     for (const file of files) {
       updatedImages.push(file);
     }
-
     setFields((prev) => ({ ...prev, logo: updatedImages }));
   };
+
+  const serviceTypes = [
+    'Cleaning Service',
+    'Electrician',
+    'Plumbers',
+    'Carpenters',
+    'Photography & Videography',
+    'Health, Beauty & Fashion',
+    'Computing & IT',
+    'Other'
+  ];
+
+  const paymentMethods = [
+    { id: 'cash', value: 'Cash', label: 'Cash' },
+    { id: 'momo', value: 'Mobile Money', label: 'Mobile Money' },
+    { id: 'cheque', value: 'Cheque', label: 'Cheque' },
+    { id: 'bank', value: 'BankTransfer', label: 'Bank Transfer' }
+  ];
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Your form submission logic here
+    console.log('Form data:', fields);
+  };
+
   return (
-    <section className='bg-indigo-50'>
-      <div className='container m-auto max-w-2xl py-24'>
-        <div className='bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0'>
-          <form
-            action='/api/professionals'
-            method='POST'
-            encType='multipart/form-data'
-          >
-            <h2 className='text-3xl text-center font-semibold mb-6'>
-              Add Service
-            </h2>
-
-            <div className='mb-4'>
-              <label
-                htmlFor='type'
-                className='block text-gray-700 font-bold mb-2'
-              >
-                Service Type
-              </label>
-              <select
-                id='type'
-                name='type'
-                className='border rounded w-full py-2 px-3'
-                required
-                value={fields.type}
-                onChange={handleChange}
-              >
-                <option value='Cleaning Service'>Cleaning Service</option>
-                <option value='Electrician'>Electrician</option>
-                <option value='Plumbers'>Plumbers</option>
-                <option value='Carpenters'>Carpenters</option>
-                <option value='Photography & Videography'>
-                  Photography & Videography
-                </option>
-                <option value='Health, Beauty & Fashion'>
-                  Health, Beauty & Fashion
-                </option>
-                <option value='Computing & IT'>Computing & IT</option>
-                <option value='Other'>Other</option>
-              </select>
-            </div>
-            {/* <div className='mb-4'>
-              <label className='block text-gray-700 font-bold mb-2'>
-                Listing Name
-              </label>
-              <input
-                type='text'
-                id='name'
-                name='name'
-                className='border rounded w-full py-2 px-3 mb-2'
-                placeholder='eg. Beautiful Apartment In Miami'
-                required
-              />
-            </div> */}
-            <div className='mb-4'>
-              <label
-                htmlFor='introduction'
-                className='block text-gray-700 font-bold mb-2'
-              >
-                Your introduction
-              </label>
-              <textarea
-                id='introducton'
-                name='introduction'
-                className='border rounded w-full py-2 px-3'
-                rows='4'
-                placeholder='Add an optional introduction'
-                value={fields.introduction}
-                onChange={handleChange}
-              ></textarea>
+    <div className="min-h-screen bg-gray-50 py-12">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-white shadow-xl rounded-2xl overflow-hidden">
+          <div className="px-6 py-8 sm:p-10">
+            <div className="text-center mb-8">
+              <h1 className="text-3xl font-bold text-gray-900">Add Your Service</h1>
+              <p className="mt-2 text-gray-600">Share your expertise with clients who need your skills</p>
             </div>
 
-            <div className='mb-4 bg-indigo-50 p-4'>
-              <label className='block text-gray-700 font-bold mb-2'>
-                Location
-              </label>
-              <input
-                type='text'
-                id='street'
-                name='location.street'
-                className='border rounded w-full py-2 px-3 mb-2'
-                placeholder='Street'
-                value={fields.location.street}
-                onChange={handleChange}
-              />
-              <input
-                type='text'
-                id='city'
-                name='location.city'
-                className='border rounded w-full py-2 px-3 mb-2'
-                placeholder='City'
-                required
-                value={fields.location.city}
-                onChange={handleChange}
-              />
-              <input
-                type='text'
-                id='state'
-                name='location.state'
-                className='border rounded w-full py-2 px-3 mb-2'
-                placeholder='State'
-                required
-                value={fields.location.state}
-                onChange={handleChange}
-              />
-              <input
-                type='text'
-                id='zipcode'
-                name='location.zipcode'
-                className='border rounded w-full py-2 px-3 mb-2'
-                placeholder='Zipcode'
-                value={fields.location.zipcode}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className='mb-4 flex flex-wrap'>
-              <div className='w-full sm:w-1/2 px-2'>
-                <label
-                  htmlFor='employees'
-                  className='block text-gray-700 font-bold mb-2 pt-2'
-                >
-                  Number of employees
+            <form onSubmit={handleSubmit} className="space-y-8">
+              
+              {/* Service Type */}
+              <div>
+                <label htmlFor="type" className="block text-sm font-medium text-gray-900 mb-2">
+                  Service Type
                 </label>
-                <input
-                  type='number'
-                  id='employees'
-                  name='employees'
-                  className='border rounded w-full py-2 px-3 pb-2'
+                <select
+                  id="type"
+                  name="type"
                   required
-                  value={fields.employees}
+                  value={fields.type}
                   onChange={handleChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                >
+                  <option value="">Select a service type</option>
+                  {serviceTypes.map(type => (
+                    <option key={type} value={type}>{type}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Introduction */}
+              <div>
+                <label htmlFor="introduction" className="block text-sm font-medium text-gray-900 mb-2">
+                  Introduction
+                </label>
+                <textarea
+                  id="introduction"
+                  name="introduction"
+                  rows={4}
+                  placeholder="Tell clients about your expertise and what makes you unique..."
+                  value={fields.introduction}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none"
                 />
               </div>
-              <div className='w-full sm:w-1/2 px-2'>
-                <label
-                  htmlFor='year_in_business'
-                  className='block text-gray-700 font-bold mb-2 pt-2'
-                >
-                  Year in business
-                </label>
-                <input
-                  type='number'
-                  id='year_in_business'
-                  name='year_in_business'
-                  className='border rounded w-full py-2 px-3 pb-2'
-                  required
-                  value={fields.year_in_business}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
 
-            <div className='mb-4 grid grid-cols-2 gap-4'>
-              <div>
-                <div className='mb-4 bg-indigo-50 p-4'>
-                  <div className='flex flex-col'>
-                    <div className='items-center'>
-                      <label
-                        htmlFor='starting_price'
-                        className='text-gray-700 font-bold mr-2 w-full'
-                      >
-                        Starting price in GH₵
-                      </label>
-                      <input
-                        type='number'
-                        id='starting_price'
-                        name='price'
-                        className='border rounded w-full mt-2 py-2 px-3'
-                        value={fields.price}
-                        onChange={handleChange}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <label className='block text-gray-700 font-bold mb-2'>
-                  Accepted payment
-                </label>
-                <div className='grid grid-cols-2 md:grid-cols-3 gap-2'>
-                  <div>
+              {/* Location */}
+              <div className="bg-gray-50 rounded-lg p-6">
+                <h3 className="text-lg font-medium text-gray-900 mb-4">Location</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="md:col-span-2">
                     <input
-                      type='checkbox'
-                      id='payment_cash'
-                      name='payment'
-                      value='Cash'
-                      className='mr-2'
-                      checked={fields.payment.includes('Cash')}
-                      onChange={handlePaymentChange}
+                      type="text"
+                      name="location.street"
+                      placeholder="Street Address (Optional)"
+                      value={fields.location.street}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                     />
-                    <label htmlFor='payment_cash'>Cash</label>
                   </div>
-                </div>
-                <div>
                   <input
-                    type='checkbox'
-                    id='payment_momo'
-                    name='payment'
-                    value='Mobile Money'
-                    className='mr-2'
-                    checked={fields.payment.includes('Mobile Money')}
-                    onChange={handlePaymentChange}
+                    type="text"
+                    name="location.city"
+                    placeholder="City"
+                    required
+                    value={fields.location.city}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                   />
-                  <label htmlFor='Momo'>Mobile Money</label>
-                </div>
-
-                <div>
                   <input
-                    type='checkbox'
-                    id='payment_cheque'
-                    name='payment'
-                    value='Cheque'
-                    className='mr-2'
-                    checked={fields.payment.includes('Cheque')}
-                    onChange={handlePaymentChange}
+                    type="text"
+                    name="location.state"
+                    placeholder="Region"
+                    required
+                    value={fields.location.state}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                   />
-                  <label htmlFor='payment_cheque'>Cheque</label>
-                </div>
-                <div>
                   <input
-                    type='checkbox'
-                    id='payment_bankTransfert'
-                    name='payment'
-                    value='BankTransfer'
-                    className='mr-2'
-                    checked={fields.payment.includes('BankTransfer')}
-                    onChange={handlePaymentChange}
+                    type="text"
+                    name="location.zipcode"
+                    placeholder="Postal Code (Optional)"
+                    value={fields.location.zipcode}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                   />
-                  <label htmlFor='payment_cheque'>Bank Transfer</label>
                 </div>
               </div>
-            </div>
 
-            <div className='mb-4'>
-              <label
-                htmlFor='company_name'
-                className='block text-gray-700 font-bold mb-2'
-              >
-                Company Name
-              </label>
-              <input
-                type='text'
-                id='company_name'
-                name='company_info.name'
-                className='border rounded w-full py-2 px-3'
-                placeholder='Name'
-                value={fields.company_info.name}
-                onChange={handleChange}
-              />
-            </div>
-            <div className='mb-4'>
-              <label
-                htmlFor='company_email'
-                className='block text-gray-700 font-bold mb-2'
-              >
-                Company Email
-              </label>
-              <input
-                type='email'
-                id='company_email'
-                name='company_info.email'
-                className='border rounded w-full py-2 px-3'
-                placeholder='Email address'
-                required
-                value={fields.company_info.email}
-                onChange={handleChange}
-              />
-            </div>
-            <div className='mb-4'>
-              <label
-                htmlFor='company_phone'
-                className='block text-gray-700 font-bold mb-2'
-              >
-                Company Phone
-              </label>
-              <input
-                type='tel'
-                id='company_phone'
-                name='company_info.phone'
-                className='border rounded w-full py-2 px-3'
-                placeholder='Phone'
-                value={fields.company_info.phone}
-                onChange={handleChange}
-              />
-            </div>
+              {/* Business Details */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="employees" className="block text-sm font-medium text-gray-900 mb-2">
+                    Number of Employees
+                  </label>
+                  <input
+                    type="number"
+                    id="employees"
+                    name="employees"
+                    min="1"
+                    required
+                    value={fields.employees}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="year_in_business" className="block text-sm font-medium text-gray-900 mb-2">
+                    Years in Business
+                  </label>
+                  <input
+                    type="number"
+                    id="year_in_business"
+                    name="year_in_business"
+                    min="0"
+                    required
+                    value={fields.year_in_business}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  />
+                </div>
+              </div>
 
-            <div className='mb-4'>
-              <label
-                htmlFor='images'
-                className='block text-gray-700 font-bold mb-2'
-              >
-                Comapny Logo (Select an image )
-              </label>
-              <input
-                type='file'
-                id='logo'
-                name='logo'
-                className='border rounded w-full py-2 px-3'
-                accept='image/*'
-                onChange={handleImageChange}
-              />
-            </div>
+              {/* Pricing and Payment */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="price" className="block text-sm font-medium text-gray-900 mb-2">
+                    Starting Price (GH₵)
+                  </label>
+                  <input
+                    type="number"
+                    id="price"
+                    name="price"
+                    min="0"
+                    step="0.01"
+                    value={fields.price}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-900 mb-3">
+                    Accepted Payment Methods
+                  </label>
+                  <div className="space-y-3">
+                    {paymentMethods.map(method => (
+                      <label key={method.id} className="flex items-center">
+                        <input
+                          type="checkbox"
+                          value={method.value}
+                          checked={fields.payment.includes(method.value)}
+                          onChange={handlePaymentChange}
+                          className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                        />
+                        <span className="ml-3 text-sm text-gray-700">{method.label}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              </div>
 
-            <div>
-              <button
-                className='bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline'
-                type='submit'
-              >
-                Add Service
-              </button>
-            </div>
-          </form>
+              {/* Company Information */}
+              <div className="bg-gray-50 rounded-lg p-6">
+                <h3 className="text-lg font-medium text-gray-900 mb-4">Company Information</h3>
+                <div className="space-y-4">
+                  <input
+                    type="text"
+                    name="company_info.name"
+                    placeholder="Company Name"
+                    value={fields.company_info.name}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  />
+                  <input
+                    type="email"
+                    name="company_info.email"
+                    placeholder="Company Email"
+                    required
+                    value={fields.company_info.email}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  />
+                  <input
+                    type="tel"
+                    name="company_info.phone"
+                    placeholder="Company Phone"
+                    value={fields.company_info.phone}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  />
+                </div>
+              </div>
+
+              {/* Logo Upload */}
+              <div>
+                <label htmlFor="logo" className="block text-sm font-medium text-gray-900 mb-2">
+                  Company Logo
+                </label>
+                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
+                  <input
+                    type="file"
+                    id="logo"
+                    name="logo"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                  />
+                  <p className="mt-2 text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                </div>
+              </div>
+
+              {/* Submit Button */}
+              <div className="pt-6">
+                <button
+                  type="submit"
+                  className="w-full bg-blue-600 text-white py-4 px-6 rounded-lg font-medium hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  Add Your Service
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

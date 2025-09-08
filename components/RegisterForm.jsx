@@ -9,7 +9,14 @@ import { toast } from 'react-toastify';
 
 const RegisterForm = ({ role = 'USER' }) => {
 
+  const {data:session} = useSession()
   const router = useRouter();
+
+  if(session) {
+    router.redirect('/')
+  }
+
+  
 
   const [formData, setFormData] = useState({
     name: '',

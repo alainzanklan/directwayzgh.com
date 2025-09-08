@@ -20,40 +20,73 @@ const NavBar = () => {
     { href: '/', label: 'Home', show: true },
     { href: '/professionals', label: 'Hire a Pro', show: !session || session.user.role === 'USER' },
     { href: '/jobs/post', label: 'Post Job', show: session?.user.role === 'USER' },
-    { href: '/leads', label: 'Find a Job', show: !session ||session?.user.role === 'PRO' },
+    { href: '/leads', label: 'Find a Job', show: !session || session?.user.role === 'PRO' },
     { href: '/professionals/add', label: 'Add Service', show: session?.user.role === 'PRO' },
   ];
 
   const visibleNavItems = navItems.filter(item => item.show);
+
+  // Handle mobile menu toggle - close profile menu when opening mobile menu
+  const handleMobileMenuToggle = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+    if (isProfileMenuOpen) setIsProfileMenuOpen(false);
+  };
+
+  // Handle profile menu toggle - close mobile menu when opening profile menu
+  const handleProfileMenuToggle = () => {
+    setIsProfileMenuOpen(!isProfileMenuOpen);
+    if (isMobileMenuOpen) setIsMobileMenuOpen(false);
+  };
 
   return (
     <nav className="bg-gray-900 border-b border-gray-700">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           
-          {/* Mobile menu button */}
-          <button
-            type="button"
-            className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            <span className="sr-only">Open main menu</span>
-            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            </svg>
-          </button>
+          {/* Mobile menu button - Left side */}
+          <div className="flex items-center md:hidden">
+            <button
+              type="button"
+              className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white"
+              onClick={handleMobileMenuToggle}
+            >
+              <span className="sr-only">Open main menu</span>
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+            </button>
+          </div>
 
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3">
-            <Image className="h-8 w-auto" src={logo} alt="DirectwayzGH" />
-            <span className="hidden md:block text-white text-lg font-bold">
-              DIRECTWAYZ GH
-            </span>
-          </Link>
-
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - Left side */}
           <div className="hidden md:flex space-x-8">
-            {visibleNavItems.map(({ href, label }) => (
+            {visibleNavItems.slice(0, Math.ceil(visibleNavItems.length / 2)).map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  pathname === href
+                    ? 'bg-gray-800 text-white'
+                    : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                }`}
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
+
+          {/* Logo - Center */}
+          <div className="flex items-center justify-center flex-1 md:flex-initial">
+            <Link href="/" className="flex items-center space-x-3">
+              <Image className="h-8 w-auto" src={logo} alt="DirectwayzGH" />
+              <span className="hidden md:block text-white text-lg font-bold">
+                DIRECTWAYZ GH
+              </span>
+            </Link>
+          </div>
+
+          {/* Desktop Navigation - Right side */}
+          <div className="hidden md:flex space-x-8">
+            {visibleNavItems.slice(Math.ceil(visibleNavItems.length / 2)).map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}
@@ -76,7 +109,7 @@ const NavBar = () => {
                 className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
               >
                 <FaGoogle className="h-4 w-4" />
-                <span>Login</span>
+                <span className="sm:inline">Login</span>
               </Link>
             ) : (
               <>
@@ -94,7 +127,7 @@ const NavBar = () => {
                   <button
                     type="button"
                     className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                    onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+                    onClick={handleProfileMenuToggle}
                   >
                     <span className="sr-only">Open user menu</span>
                     <Image className="h-8 w-8 rounded-full" src={profileDefault} alt="Profile" />
