@@ -11,9 +11,7 @@ async function fetchPros() {
     if (!apiDomain) {
       return [];
     }
-    const res = await fetch(`${apiDomain}/professionals`, {
-      cache: 'no-store',
-    });
+    const res = await fetch(`${apiDomain}/professionals`,);
 
     if (!res.ok) {
       throw new Error('Failed to fetch Data');

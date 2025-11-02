@@ -1,3 +1,4 @@
+'use client'
 import Hero from '@/components/Hero';
 import HomePros from '@/components/HomePros';
 import Infoboxes from '@/components/Infoboxes';
