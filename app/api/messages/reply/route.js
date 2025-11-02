@@ -2,7 +2,7 @@ import connectDB from '@/config/database';
 import Message from '@/models/Message';
 import User from '@/models/User';
 import { getSessionUser } from '@/utils/getSessionUser';
-import  { sendReplyEmail } from '@/utils/emailService.js';
+// import  { sendReplyEmail } from '@/utils/emailService.js';
 
 export const dynamic = 'force-dynamic';
 
@@ -66,36 +66,36 @@ export const POST = async (request) => {
 
     await replyMessage.save();
 
-    // Send email notification
-    try {
-      const subject = `Re: ${originalMessage.pro?.type || 'Your Inquiry'}`;
-      const senderName = currentUser.name || currentUser.username || 'Support Team';
+//     // Send email notification
+//     try {
+//       const subject = `Re: ${originalMessage.pro?.type || 'Your Inquiry'}`;
+//       const senderName = currentUser.name || currentUser.username || 'Support Team';
       
-      const emailResult = await sendReplyEmail(
-        recipientEmail,
-        otherPerson.name,
-        subject,
-        replyText.trim(),
-        senderName
-      );
+//       const emailResult = await sendReplyEmail(
+//         recipientEmail,
+//         otherPerson.name,
+//         subject,
+//         replyText.trim(),
+//         senderName
+//       );
 
-      if (!emailResult.success) {
-        console.warn('Email sending failed:', emailResult.error);
-        // Don't fail the whole operation if email fails
-      }
-    } catch (emailError) {
-      console.warn('Email service error:', emailError);
-      // Continue anyway
-    }
+//       if (!emailResult.success) {
+//         console.warn('Email sending failed:', emailResult.error);
+//         // Don't fail the whole operation if email fails
+//       }
+//     } catch (emailError) {
+//       console.warn('Email service error:', emailError);
+//       // Continue anyway
+//     }
 
-    return Response.json({ 
+   return Response.json({ 
       success: true,
-      message: 'Reply sent successfully',
-      replyId: replyMessage._id
-    });
+     message: 'Reply sent successfully',
+    replyId: replyMessage._id
+  });
 
   } catch (error) {
-    console.error('Error sending reply:', error);
-    return Response.json({ error: 'Failed to send reply' }, { status: 500 });
+   console.error('Error sending reply:', error);
+     return Response.json({ error: 'Failed to send reply' }, { status: 500 });
   }
 };
