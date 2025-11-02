@@ -2,7 +2,7 @@ import connectDB from '@/config/database';
 import Message from '@/models/Message';
 import User from '@/models/User';
 import { getSessionUser } from '@/utils/getSessionUser';
-import  { sendReplyEmail } from '@/utils/emailservice';
+import  { sendReplyEmail } from '@/utils/emailService';
 
 export const dynamic = 'force-dynamic';
 
