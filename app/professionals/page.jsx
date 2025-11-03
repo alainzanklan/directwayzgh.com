@@ -1,9 +1,11 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import ProfessionalCard from '@/components/ProsCard';
+import { fetchPros } from '@/utils/request'; // Fixed import path
 import SearchForm from '@/components/SearchForm';
 import { Users, Filter } from 'lucide-react';
 import Link from 'next/link';
-import connectDB from '@/config/database';
-import Pro from '@/models/Pro';
 
 const EmptyState = () => (
   <div className="text-center py-20">
@@ -17,29 +19,52 @@ const EmptyState = () => (
   </div>
 );
 
-const ProsPage = async () => {
-  let pros = [];
-  
-  try {
-    await connectDB();
-    
-    // Fetch directly from database instead of API
-    const professionals = await Pro.find({})
-      .select('-__v')
-      .sort({ createdAt: -1 })
-      .lean();
-      
-    // Convert MongoDB ObjectIds to strings for serialization
-    pros = professionals.map(pro => ({
-      ...pro,
-      _id: pro._id.toString(),
-      owner: pro.owner?.toString(),
-    }));
-    
-  } catch (error) {
-    console.error('Error fetching professionals:', error);
-    // Return empty array on error to prevent page crash
-    pros = [];
+const LoadingState = () => (
+  <div className="text-center py-20">
+    <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-900 mx-auto mb-6"></div>
+    <h3 className="text-xl font-semibold text-gray-900 mb-3">Loading professionals...</h3>
+    <p className="text-gray-600">Please wait while we fetch the latest professionals.</p>
+  </div>
+);
+
+const ProsPage = () => {
+  const [pros, setPros] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const loadProfessionals = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchPros();
+        const sortedPros = (data || []).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        setPros(sortedPros);
+      } catch (error) {
+        console.error('Error loading professionals:', error);
+        setError('Failed to load professionals');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProfessionals();
+  }, []);
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-red-600 mb-4">Error Loading Professionals</h2>
+          <p className="text-gray-600 mb-4">{error}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="px-6 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -73,7 +98,7 @@ const ProsPage = async () => {
                 Available Professionals
               </h2>
               <p className="text-gray-600">
-                {pros.length} professionals ready to help
+                {loading ? 'Loading...' : `${pros.length} professionals ready to help`}
               </p>
             </div>
             
@@ -92,7 +117,9 @@ const ProsPage = async () => {
           </div>
 
           {/* Content */}
-          {pros.length === 0 ? (
+          {loading ? (
+            <LoadingState />
+          ) : pros.length === 0 ? (
             <EmptyState />
           ) : (
             <>

@@ -1,37 +1,50 @@
-import ProfessionalCard from './ProsCard';
-import Link from 'next/link';
-import connectDB from '@/config/database';
-import Pro from '@/models/Pro';
+'use client';
 
-const HomeJobs = async () => {
-  let pros = [];
-  
-  try {
-    await connectDB();
-    
-    // Fetch directly from database instead of API
-    const professionals = await Pro.find({})
-      .select('-__v')
-      .sort({ createdAt: -1 })
-      .lean();
-      
-    // Convert MongoDB ObjectIds to strings for serialization
-    pros = professionals.map(pro => ({
-      ...pro,
-      _id: pro._id.toString(),
-      owner: pro.owner?.toString(),
-    }));
-    
-  } catch (error) {
-    console.error('Error fetching professionals:', error);
-    // Return empty array on error to prevent page crash
-    pros = [];
-  }
+import { useState, useEffect } from 'react';
+import ProfessionalCard from './ProsCard';
+import { fetchPros } from '@/utils/request'; // Fixed import path
+import Link from 'next/link';
+
+const HomeJobs = () => {
+  const [pros, setPros] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadProfessionals = async () => {
+      try {
+        const data = await fetchPros();
+        setPros(data || []);
+      } catch (error) {
+        console.error('Error loading professionals:', error);
+        setPros([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProfessionals();
+  }, []);
 
   // Get random 3 professionals
   const recentPros = pros
     .sort(() => 0.5 - Math.random())
     .slice(0, 3);
+
+  if (loading) {
+    return (
+      <section className="mb-12 px-4">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
+            Recent Professionals
+          </h2>
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto"></div>
+            <p className="text-gray-600 mt-4">Loading professionals...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="mb-12 px-4">
