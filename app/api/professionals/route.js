@@ -18,6 +18,7 @@ export const GET = async (request) => {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
+        
       },
     });
   } catch (error) {

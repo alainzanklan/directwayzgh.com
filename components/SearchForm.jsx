@@ -23,7 +23,7 @@ const SearchForm = () => {
     { value: 'All', label: 'All Services' },
     { value: 'Cleaning', label: 'Cleaning Services' },
     { value: 'Electrician', label: 'Electrician' },
-    { value: 'Plumbers', label: 'Plumbers' },
+    { value: 'Plumbers', label: 'Plumbing' },
     { value: 'Carpenters', label: 'Carpenters' },
     { value: 'Photography', label: 'Photography & Videography' },
     { value: 'Health', label: 'Health, Beauty & Fashion' },

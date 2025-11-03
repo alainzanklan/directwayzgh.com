@@ -1,9 +1,34 @@
 import ProfessionalCard from './ProsCard';
-import { fetchPros } from '@/utils/request';
 import Link from 'next/link';
+import connectDB from '@/config/database';
+import Pro from '@/models/Pro';
 
 const HomeJobs = async () => {
-  const pros = await fetchPros();
+  let pros = [];
+  
+  try {
+    await connectDB();
+    
+    // Fetch directly from database instead of API
+    const professionals = await Pro.find({})
+      .select('-__v')
+      .sort({ createdAt: -1 })
+      .lean();
+      
+    // Convert MongoDB ObjectIds to strings for serialization
+    pros = professionals.map(pro => ({
+      ...pro,
+      _id: pro._id.toString(),
+      owner: pro.owner?.toString(),
+    }));
+    
+  } catch (error) {
+    console.error('Error fetching professionals:', error);
+    // Return empty array on error to prevent page crash
+    pros = [];
+  }
+
+  // Get random 3 professionals
   const recentPros = pros
     .sort(() => 0.5 - Math.random())
     .slice(0, 3);

@@ -1,8 +1,9 @@
 import ProfessionalCard from '@/components/ProsCard';
-import { fetchPros } from '@/utils/request';
 import SearchForm from '@/components/SearchForm';
 import { Users, Filter } from 'lucide-react';
 import Link from 'next/link';
+import connectDB from '@/config/database';
+import Pro from '@/models/Pro';
 
 const EmptyState = () => (
   <div className="text-center py-20">
@@ -17,8 +18,29 @@ const EmptyState = () => (
 );
 
 const ProsPage = async () => {
-  const pros = await fetchPros();
-  pros.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  let pros = [];
+  
+  try {
+    await connectDB();
+    
+    // Fetch directly from database instead of API
+    const professionals = await Pro.find({})
+      .select('-__v')
+      .sort({ createdAt: -1 })
+      .lean();
+      
+    // Convert MongoDB ObjectIds to strings for serialization
+    pros = professionals.map(pro => ({
+      ...pro,
+      _id: pro._id.toString(),
+      owner: pro.owner?.toString(),
+    }));
+    
+  } catch (error) {
+    console.error('Error fetching professionals:', error);
+    // Return empty array on error to prevent page crash
+    pros = [];
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -106,14 +128,14 @@ const ProsPage = async () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href={'/register-pro'}>
-            <button className="px-8 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors">
-              Join as Professional
-            </button>
+              <button className="px-8 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors">
+                Join as Professional
+              </button>
             </Link>
             <Link href={'/about-us'}>
-            <button className="px-8 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
-              Learn More
-            </button>
+              <button className="px-8 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                Learn More
+              </button>
             </Link>
           </div>
         </div>
