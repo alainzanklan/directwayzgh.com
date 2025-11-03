@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { ArrowLeft, MapPin, X, Briefcase, Star, Lock, Mail, Phone, Building2, Eye, Trash2, Edit3 } from 'lucide-react';
+import { ArrowLeft, MapPin, X, Briefcase, Lock, Mail, Phone, Building2, Eye, Trash2, Edit3 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { fetchJob } from '@/utils/request';
@@ -21,146 +21,83 @@ const Spinner = ({ loading }) => {
   );
 };
 
-// Premium Upgrade Banner
-const PremiumBanner = () => (
-  <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-lg p-6 mb-6">
-    <div className="flex items-center justify-between">
-      <div className="flex items-start gap-4">
-        <div className="p-2 bg-amber-100 rounded-lg">
-          <Star className="w-6 h-6 text-amber-600" />
-        </div>
-        <div>
-          <h3 className="text-lg font-semibold text-amber-900 mb-1">
-            Unlock Employer Contact Details
-          </h3>
-          <p className="text-amber-700 text-sm mb-3">
-            Get direct access to employer information and apply for this job
-          </p>
-          <ul className="text-xs text-amber-600 space-y-1">
-            <li>✓ Direct email and phone contact</li>
-            <li>✓ Company information</li>
-            <li>✓ Priority application status</li>
-            <li>✓ Access to all job details</li>
-          </ul>
-        </div>
-      </div>
-      <div className="flex flex-col gap-2">
-        <Link
-          href="/pricing"
-          className="px-6 py-2 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-lg transition-colors text-center"
-        >
-          Unlock Now
-        </Link>
-        <span className="text-xs text-amber-600 text-center">From GH₵ 99/mo</span>
-      </div>
-    </div>
-  </div>
-);
-
-// Employer Info Component
+// Simple Employer Info Component
 const EmployerInfo = ({ job, isPremium, isOwner }) => {
   if (isPremium || isOwner) {
+    // Show full employer info for premium users and job owners
     return (
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
         <div className="flex items-center gap-2 mb-6">
           <Building2 className="w-5 h-5 text-blue-600" />
           <h3 className="text-xl font-semibold text-gray-900">Employer Info</h3>
-          <div className="flex items-center gap-1 px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded-full ml-auto">
-            <Star className="w-3 h-3" />
-            Premium Access
-          </div>
         </div>
 
         <div className="space-y-4">
           <div>
-            <h4 className="text-lg font-medium text-gray-900 mb-2">{job.company}</h4>
+            <h4 className="text-lg font-medium text-gray-900 mb-4">{job.company}</h4>
           </div>
 
-          <div className="border-t border-gray-200 pt-4">
-            <div className="space-y-3">
-              <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-lg">
-                <Mail className="w-5 h-5 text-blue-600" />
-                <div>
-                  <p className="text-sm font-medium text-gray-700">Contact Email</p>
-                  <p className="text-blue-600 font-medium">{job.contactEmail}</p>
-                </div>
+          <div className="space-y-3">
+            <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-lg">
+              <Mail className="w-5 h-5 text-blue-600" />
+              <div>
+                <p className="text-sm font-medium text-gray-700">Contact Email</p>
+                <a href={`mailto:${job.contactEmail}`} className="text-blue-600 font-medium hover:text-blue-700">
+                  {job.contactEmail}
+                </a>
               </div>
+            </div>
 
-              <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-lg">
-                <Phone className="w-5 h-5 text-blue-600" />
-                <div>
-                  <p className="text-sm font-medium text-gray-700">Contact Phone</p>
-                  <p className="text-blue-600 font-medium">{job.contactPhone}</p>
-                </div>
+            <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-lg">
+              <Phone className="w-5 h-5 text-blue-600" />
+              <div>
+                <p className="text-sm font-medium text-gray-700">Contact Phone</p>
+                <a href={`tel:${job.contactPhone}`} className="text-blue-600 font-medium hover:text-blue-700">
+                  {job.contactPhone}
+                </a>
               </div>
             </div>
           </div>
 
-          <div className="border-t border-gray-200 pt-4">
-            <button className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors">
+          <div className="pt-4">
+            <a
+              href={`mailto:${job.contactEmail}`}
+              className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
+            >
               <Mail className="w-4 h-4" />
               Contact Employer
-            </button>
+            </a>
           </div>
         </div>
       </div>
     );
   }
 
-  // Non-premium view
+  // Show limited info for non-premium users
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 relative">
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
       <div className="flex items-center gap-2 mb-6">
-        <Building2 className="w-5 h-5 text-gray-400" />
+        <Building2 className="w-5 h-5 text-blue-600" />
         <h3 className="text-xl font-semibold text-gray-900">Employer Info</h3>
-        <div className="flex items-center gap-1 px-2 py-1 bg-amber-100 text-amber-800 text-xs font-medium rounded-full ml-auto">
-          <Lock className="w-3 h-3" />
-          Premium
-        </div>
       </div>
 
-      {/* Blurred content */}
-      <div className="space-y-4 relative">
-        <div className="filter blur-sm pointer-events-none select-none">
-          <div>
-            <h4 className="text-lg font-medium text-gray-900 mb-2">Premium Company Ltd.</h4>
-          </div>
-
-          <div className="border-t border-gray-200 pt-4">
-            <div className="space-y-3">
-              <div className="flex items-center gap-3 p-3 bg-gray-100 rounded-lg">
-                <Mail className="w-5 h-5 text-gray-400" />
-                <div>
-                  <p className="text-sm font-medium text-gray-700">Contact Email</p>
-                  <p className="text-gray-600">contact@company.com</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3 p-3 bg-gray-100 rounded-lg">
-                <Phone className="w-5 h-5 text-gray-400" />
-                <div>
-                  <p className="text-sm font-medium text-gray-700">Contact Phone</p>
-                  <p className="text-gray-600">+233 XX XXX XXXX</p>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div className="space-y-4">
+        <div>
+          <h4 className="text-lg font-medium text-gray-900 mb-4">{job.company}</h4>
         </div>
 
-        {/* Overlay */}
-        <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-90">
-          <div className="text-center p-6">
-            <Lock className="w-12 h-12 text-amber-600 mx-auto mb-4" />
-            <h4 className="text-lg font-semibold text-gray-900 mb-2">Unlock Employer Details</h4>
-            <p className="text-gray-600 text-sm mb-4">Get direct contact information to apply for this job</p>
-            <Link
-              href="/pricing"
-              className="inline-flex items-center gap-2 px-6 py-2 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-lg transition-colors"
-            >
-              <Star className="w-4 h-4" />
-              Go Premium
-            </Link>
-          </div>
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center">
+          <Lock className="w-8 h-8 text-blue-600 mx-auto mb-3" />
+          <h4 className="text-lg font-semibold text-gray-900 mb-2">Contact Details</h4>
+          <p className="text-gray-600 text-sm mb-4">
+            Upgrade to Premium to access employer contact information
+          </p>
+          <Link
+            href="/pricing"
+            className="inline-flex items-center gap-2 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
+          >
+            Upgrade to Premium
+          </Link>
         </div>
       </div>
     </div>
@@ -197,7 +134,6 @@ const JobPage = () => {
 
   const handleDeleteJob = async () => {
     const confirm = window.confirm('Are you sure you want to delete this job?');
-
     if (!confirm) return;
 
     try {
@@ -254,36 +190,19 @@ const JobPage = () => {
             
             {/* Job Header */}
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-              <div className="flex items-start justify-between mb-4">
+              <div className="mb-4">
                 <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                   {job.type}
                 </span>
-                {isPremium && (
-                  <div className="flex items-center gap-1 px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded-full">
-                    <Star className="w-3 h-3" />
-                    Premium Access
-                  </div>
-                )}
               </div>
               
               <h1 className="text-3xl font-bold text-gray-900 mb-4">{job.title}</h1>
               
-              <div className="flex items-center gap-2 text-gray-600 mb-6">
-                <MapPin className="w-5 h-5 text-orange-600" />
-                <span className="text-orange-600 font-medium">
-                  {isPremium || isOwner ? job.location : job.location.split(',').slice(-1)[0].trim()}
-                </span>
-                {!isPremium && !isOwner && (
-                  <div className="flex items-center gap-1 text-xs text-gray-500">
-                    <Lock className="w-3 h-3" />
-                    <span>Full address with Premium</span>
-                  </div>
-                )}
+              <div className="flex items-center gap-2 text-gray-600">
+                <MapPin className="w-5 h-5 text-blue-600" />
+                <span className="text-blue-600 font-medium">{job.location}</span>
               </div>
             </div>
-
-            {/* Premium Banner for Non-Premium Users */}
-            {!isPremium && !isOwner && <PremiumBanner />}
 
             {/* Image Gallery */}
             {job.images && job.images.length > 0 && (
@@ -320,45 +239,13 @@ const JobPage = () => {
               
               <div className="prose max-w-none">
                 <p className="text-gray-700 leading-relaxed mb-6">
-                  {isPremium || isOwner 
-                    ? job.description 
-                    : job.description.length > 200 
-                      ? job.description.substring(0, 200) + '...' 
-                      : job.description
-                  }
+                  {job.description}
                 </p>
-                
-                {!isPremium && !isOwner && job.description.length > 200 && (
-                  <div className="border-t border-gray-200 pt-4">
-                    <div className="flex items-center justify-between p-4 bg-amber-50 border border-amber-200 rounded-lg">
-                      <div className="flex items-center gap-2">
-                        <Lock className="w-4 h-4 text-amber-600" />
-                        <span className="text-sm text-amber-800 font-medium">Full description available with Premium</span>
-                      </div>
-                      <Link
-                        href="/pricing"
-                        className="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1 rounded-full transition-colors"
-                      >
-                        Upgrade
-                      </Link>
-                    </div>
-                  </div>
-                )}
               </div>
 
-              <div className="border-t border-gray-200 pt-6 mt-6">
-                <h4 className="text-lg font-semibold text-gray-900 mb-2">Target Price</h4>
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl font-bold text-green-600">
-                    {isPremium || isOwner ? job.price : 'Contact for pricing'}
-                  </span>
-                  {!isPremium && !isOwner && (
-                    <div className="flex items-center gap-1 text-xs text-gray-500">
-                      <Lock className="w-3 h-3" />
-                      <span>Premium</span>
-                    </div>
-                  )}
-                </div>
+              <div className="border-t border-gray-200 pt-6">
+                <h4 className="text-lg font-semibold text-gray-900 mb-2">Budget</h4>
+                <span className="text-2xl font-bold text-green-600">{job.price}</span>
               </div>
             </div>
           </div>
@@ -392,26 +279,27 @@ const JobPage = () => {
               </div>
             )}
 
-            {/* Quick Actions for Non-Owners */}
+            {/* Apply Section for Non-Owners */}
             {!isOwner && (
               <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
-                <div className="space-y-3">
-                  {isPremium ? (
-                    <button className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition-colors">
-                      <Mail className="w-4 h-4" />
-                      Apply Now
-                    </button>
-                  ) : (
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Interested in this job?</h3>
+                {isPremium ? (
+                  <p className="text-gray-600 text-sm mb-4">
+                    Contact the employer directly using the information above.
+                  </p>
+                ) : (
+                  <div>
+                    <p className="text-gray-600 text-sm mb-4">
+                      Upgrade to Premium to access employer contact information and apply for this job.
+                    </p>
                     <Link
                       href="/pricing"
-                      className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-lg transition-colors"
+                      className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
                     >
-                      <Star className="w-4 h-4" />
-                      Upgrade to Apply
+                      View Pricing
                     </Link>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
             )}
           </div>
