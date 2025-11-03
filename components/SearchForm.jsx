@@ -86,7 +86,7 @@ const SearchForm = () => {
           {/* Search Button */}
           <button
             type='submit'
-            className='md:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group'
+            className='md:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group'
           >
             <Search className='w-5 h-5 group-hover:scale-110 transition-transform' />
             <span className='hidden sm:inline'>Search</span>

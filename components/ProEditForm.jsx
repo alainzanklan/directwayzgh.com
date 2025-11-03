@@ -202,39 +202,55 @@ const EditProfile = () => {
     company_info: { name: '', email: '', phone: '' }
   });
 
-  // Fetch profile data
+  // Fetch profile data with cache busting
   useEffect(() => {
     const fetchProfile = async () => {
+      if (!id) return;
+      
+      setLoading(true);
       try {
-        const res = await fetch(`/api/professionals/${id}`);
+        // Add cache busting to ensure fresh data
+        const timestamp = new Date().getTime();
+        const res = await fetch(`/api/professionals/${id}?t=${timestamp}`, {
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache'
+          }
+        });
+        
         if (res.ok) {
           const data = await res.json();
+          console.log('Fetched profile data:', data); // Debug log
+          
           setFormData({
-            types: data.types || [],
+            types: Array.isArray(data.types) ? data.types : [],
             introduction: data.introduction || '',
             location: data.location || { street: '', city: '', state: '', zipcode: '' },
             employees: data.employees || '',
             year_in_business: data.year_in_business || '',
             price: data.price || '',
-            payment: data.payment || [],
+            payment: Array.isArray(data.payment) ? data.payment : [],
             company_info: data.company_info || { name: '', email: '', phone: '' }
           });
           
           if (data.logo) {
-            setLogoPreview(data.logo);
+            // Handle both string and array logo formats
+            const logoUrl = Array.isArray(data.logo) ? data.logo[0] : data.logo;
+            setLogoPreview(logoUrl);
           }
         } else {
           toast.error('Profile not found');
           router.push('/profile');
         }
       } catch (error) {
+        console.error('Error fetching profile:', error);
         toast.error('Failed to load profile');
       } finally {
         setLoading(false);
       }
     };
 
-    if (id) fetchProfile();
+    fetchProfile();
   }, [id, router]);
 
   // Handle input changes
@@ -254,18 +270,26 @@ const EditProfile = () => {
 
   // Handle service addition
   const handleServiceAdd = (type) => {
-    setFormData(prev => ({
-      ...prev,
-      types: [...prev.types, type]
-    }));
+    setFormData(prev => {
+      const newTypes = [...prev.types, type];
+      console.log('Adding service type:', type, 'New types:', newTypes); // Debug log
+      return {
+        ...prev,
+        types: newTypes
+      };
+    });
   };
 
   // Handle service removal
   const handleServiceRemove = (type) => {
-    setFormData(prev => ({
-      ...prev,
-      types: prev.types.filter(t => t !== type)
-    }));
+    setFormData(prev => {
+      const newTypes = prev.types.filter(t => t !== type);
+      console.log('Removing service type:', type, 'New types:', newTypes); // Debug log
+      return {
+        ...prev,
+        types: newTypes
+      };
+    });
   };
 
   // Handle payment method change
@@ -307,6 +331,8 @@ const EditProfile = () => {
       return;
     }
 
+    console.log('Submitting form data:', formData); // Debug log
+
     setSaving(true);
 
     try {
@@ -323,14 +349,19 @@ const EditProfile = () => {
       });
 
       const result = await response.json();
+      console.log('API response:', result); // Debug log
 
       if (response.ok && result.success) {
         toast.success('Profile updated successfully!');
-        setTimeout(() => router.push('/profile'), 1500);
+        // Use hard refresh to ensure updated data is shown
+        setTimeout(() => {
+          window.location.href = '/profile';
+        }, 1500);
       } else {
         toast.error(result.error || 'Failed to update profile');
       }
     } catch (error) {
+      console.error('Submit error:', error);
       toast.error('Network error. Please try again.');
     } finally {
       setSaving(false);
@@ -348,7 +379,9 @@ const EditProfile = () => {
       
       if (res.ok) {
         toast.success('Profile deleted successfully');
-        setTimeout(() => router.push('/profile'), 1500);
+        setTimeout(() => {
+          window.location.href = '/profile';
+        }, 1500);
       } else {
         toast.error('Failed to delete profile');
       }
@@ -383,6 +416,13 @@ const EditProfile = () => {
           </button>
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Edit Professional Profile</h1>
           <p className="text-gray-600 mt-1">Update your professional information</p>
+        </div>
+
+        {/* Debug Info (remove in production) */}
+        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+          <h3 className="font-semibold text-yellow-800 mb-2">Debug Info:</h3>
+          <p className="text-sm text-yellow-700">Selected Types: {JSON.stringify(formData.types)}</p>
+          <p className="text-sm text-yellow-700">Types Count: {formData.types.length}</p>
         </div>
 
         {/* Form */}
